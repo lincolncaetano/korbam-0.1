@@ -1,0 +1,54 @@
+<ion-content class="bg" scroll="false">
+
+    <center style="margin-top: 30px;">
+      <img src="img/logo-branca.png" class="inicialLogo" width="70%" alt="KORBAM" />
+    </center>
+
+    <form #loginForm="ngForm" novalidate>
+          <ion-list class="login">
+              <ion-item>
+                  <ion-input [(ngModel)]="login.username" ngModel name="username" type="text" #username="ngModel" placeholder="Username" required></ion-input>
+              </ion-item>
+              <p [hidden]="username.valid || submitted == false" danger padding-left>
+                Username is required
+              </p>
+
+              <ion-item>
+                  <ion-input [(ngModel)]="login.password" ngModel name="password" type="password" #password="ngModel" placeholder="Password" required></ion-input>
+              </ion-item>
+              <p [hidden]="password.valid || submitted == false" danger padding-left>
+                Password is required
+              </p>
+
+          </ion-list>
+
+          <div padding>
+              <button (click)="onSubmit(loginForm)" block>LOGIN</button>
+          </div>
+
+          <div id="textoEsqueceuSenha" padding>
+      		    <a href="#" id="linkEsqueceuSenha" (click)="forgotPwd()">Esqueceu sua senha?</a>
+          </div>
+    </form>
+
+
+
+    <hr id="linhaSeparadora"/>
+
+    <div padding>
+        <center>
+            <button style="background-color: #3b5998; width: 50px;">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </button>
+            <button style="background-color: #d34836; width: 50px;">
+              <ion-icon name="logo-googleplus"></ion-icon>
+            </button>
+        </center>
+    </div>
+
+    <div id="textoCriarConta">
+      <p id="textoNaoTemConta">N&#xE3;o tem uma conta?</p>
+      <a href="#" id="textoCriarConta" (click)="doSignup()">Criar uma conta</a><br />
+    </div>
+
+</ion-content>

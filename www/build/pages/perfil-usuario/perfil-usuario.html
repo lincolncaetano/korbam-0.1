@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-navbar hide-tabs>
+
+    <ion-title>
+      {{username}}
+    </ion-title>
+
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="perfil">
+
+    <div id="capa"><img src="img/capa.jpg"></div>
+
+    <div class="botaoOverlay"></div>
+    <img class="imagemPerfil" src="img/bradley.jpg" />
+
+    <a href="#" (click)="presentPopover($event)">
+        <ion-icon name="add-circle" class="botao botaoAdd"></ion-icon>
+    </a>
+
+    <!--
+    <div class="botaoOverlay-b"></div>
+    <a href="#" (click)="mostrarOpcoes('PO')">
+        <ion-icon name="md-contact" class="botao botaoPerfil" dark></ion-icon>
+    </a>
+    -->
+
+    <div class="perfilInfo">
+
+        <hr class="linhaSeparadoraPerfil" />
+
+        <div id="nomePerfil">
+            <h1>{{username}}</h1>
+        </div>
+
+        <hr class="linhaSeparadoraPerfil" />
+
+        <br />
+
+        <div id="profissao">
+            <h2>Executivo Diamante Hinode</h2>
+        </div>
+
+        <div id="idade">
+            <h2>23 anos</h2>
+        </div>
+
+        <div id="estadoCivil">
+            <h2>Casado, 2 Filhos</h2>
+        </div>
+
+        <div id="contato">
+            <h2>doug-cg@hotmail.com</h2>
+            <h2>(61) 9604-6873 (Claro)</h2>
+        </div>
+
+    </div>
+
+    <div class="perfilOpcoes anima-slide" id="PO">
+        <a href="#" (click)="solicitaAmizade()">Adicionar como amigo</a>
+        <br/>
+        <hr class="linhaSeparadoraPerfilOpcoes" />
+        <a href="#" class="linkDesabilitado">Solicitar Horário</a>
+        <br/>
+        <a href="#" class="linkDesabilitado">Evento Rápido</a>
+    </div>
+
+</ion-content>

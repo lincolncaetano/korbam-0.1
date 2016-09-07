@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Cadastrar Evento</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="cadastrar-evento bg-branco">
+
+  <form class="formCadastrarEvento" #eventoForm="ngForm" novalidate>
+
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Nome do evento</ion-label>
+      <ion-input  type="text" [(ngModel)]="eventoCad.titulo"  ngModel name="titulo" #titulo="ngModel" required></ion-input>
+    </ion-item>
+
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Data</ion-label>
+      <ion-datetime class="inputModificado2" displayFormat="DD/MM/YYYY" [(ngModel)]="eventoCad.dtInicioString" ngModel name="dtInicioString" #dtInicioString="ngModel" required></ion-datetime>
+    </ion-item>
+
+    <ion-row class="rowCad">
+
+      <ion-col class="rowCad" width-50>
+
+        <ion-item class="itemCadastrarEvento">
+          <ion-label stacked class="labelCadastrarEvento">Hora inicial</ion-label>
+          <ion-datetime class="inputModificado2" displayFormat="HH:mm" [(ngModel)]="eventoCad.hrInicial" ngModel name="hrInicial" #hrInicial="ngModel" required></ion-datetime>
+        </ion-item>
+
+      </ion-col>
+
+      <ion-col class="rowCad" width-50>
+
+        <ion-item class="itemCadastrarEvento">
+          <ion-label stacked class="labelCadastrarEvento">Hora final</ion-label>
+          <ion-datetime class="inputModificado2" displayFormat="HH:mm" [(ngModel)]="eventoCad.hrFinal" ngModel name="hrFinal" #hrFinal="ngModel" required></ion-datetime>
+        </ion-item>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Lembrete</ion-label>
+      <ion-select>
+        <ion-option value="1" checked="true">1hr antes</ion-option>
+        <ion-option value="2">2hrs antes</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Lembrete 2</ion-label>
+      <ion-select>
+        <ion-option value="1" checked="true">1hr antes</ion-option>
+        <ion-option value="2">2hrs antes</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <br />
+
+
+    <button block  style="color: #209760; margin-left: 5px; margin-right: 5px;" [disabled]="!eventoForm.valid" (click)="funcaoPraAceitarSubmeterForm(eventoForm)">
+      <ion-icon name="checkmark-circle"></ion-icon>
+    </button>
+
+
+  </form>
+
+</ion-content>

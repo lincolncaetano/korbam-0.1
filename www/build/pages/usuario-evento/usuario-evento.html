@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Adicione membros</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="bg-branco">
+
+  <ion-searchbar class="inputBuscaAddMembrosEvento"></ion-searchbar>
+
+  <br />
+  <hr id="linhaSeparadora"/>
+  <br />
+
+  <ion-list>
+
+    <ion-item *ngFor="let item of items">
+      <ion-label>{{item.username}}</ion-label>
+      <ion-checkbox checked="{{item.checked}}" (click)="change(item)"></ion-checkbox>
+      <ion-avatar item-left>
+        <img src="img/bradley.jpg">
+      </ion-avatar>
+    </ion-item>
+
+  </ion-list>
+
+  <div class="botoesForm">
+
+    <div class="botaoOverlay1"></div>
+    <div class="botaoOverlay2"></div>
+
+    <button block  style="color: #209760; margin-left: 5px; margin-right: 5px;" (click)="salvarEvento()">
+      <ion-icon name="checkmark-circle"></ion-icon>
+    </button>
+
+
+  </div>
+
+</ion-content>

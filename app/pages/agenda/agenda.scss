@@ -1,0 +1,242 @@
+
+.ng-datepicker > .controls {
+	padding: 0;
+	display: block;
+	height: 5px;
+}
+
+.ng-datepicker > .calendar, .ng-datepicker > .day-names {
+	width: 103% !important;
+}
+
+.ng-datepicker > .controls > .date {
+    color: #fff !important;
+    background-color: #4c799a;
+    min-height: 29px;
+    width: 236px !important;
+		padding-top: 5px !important;
+}
+
+.ng-datepicker > .controls > .left, .ng-datepicker > .controls > .right {
+    color: #fff !important;
+    background-color: #5d8db1;
+    min-height: 29px;
+    margin: 0;
+	padding-top: 5px !important;
+}
+
+.ng-datepicker > .calendar > span > span.day:hover {
+    background-color: #4c799a;
+}
+
+.ng-datepicker > .controls > .right {
+	padding-left: 20px !important;
+}
+
+.day {
+	border: 1px solid #dadada;
+	color: black;
+}
+
+.day.selected {
+	background: #4c799a !important;
+	color: white;
+}
+
+.day-name {
+    color: #fff !important;
+    background-color: #95b7d3;
+    border: 1px solid #dadada;
+}
+
+.toolbar-personalizada {
+	background-color: #dadada !important;
+	border-bottom: 3px solid #000;
+}
+
+.ferramentasAgenda {
+    background-color: #fff;
+    width: 135px;
+    border-radius: 250px;
+    position: absolute;
+}
+
+.ferramentasAgenda ion-icon:active {
+	font-size: 39px;
+}
+
+.ferramentasAgenda ion-icon {
+	color: #081522;
+	font-size: 40px;
+	margin-left: 10px;
+}
+
+.ferramentasAgenda a {
+	text-decoration: none;
+}
+
+.ferramentaAgenda2 ion-icon {
+	color: #000;
+	font-size: 280%;
+}
+
+.meusEventosAgenda {
+    width: 45%;
+    float: right;
+    position: relative;
+    background: none;
+    font-size: 13px;
+    font-weight: 500;
+    color: #081421;
+    margin: 0;
+    padding: 0;
+}
+
+.modeloItemAgenda1 {
+	font-family: "Tahoma";
+	font-size: 25px;
+	color: #081522;
+	margin-top: 25px;
+	background-color: #14518c;
+	min-height: 100px;
+	position: relative;
+	box-sizing: border-box;
+}
+
+.modeloItemAgenda2 {
+	font-family: "Tahoma";
+	font-size: 25px;
+	color: #081522;
+	margin-top: 25px;
+	background-color: #14518c;
+	min-height: 100px;
+	position: relative;
+}
+
+.modeloItemAgenda1::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    margin-left: -0.5em;
+    bottom: -1.995em;
+    left: 88.9%;
+    box-sizing: border-box;
+    border: 1em solid black;
+    border-color: transparent transparent #f4061a #f4061a;
+    transform-origin: 0 0;
+    transform: rotate(-90deg);
+}
+
+.modeloItemAgendaItens {
+	margin-top: 95px;
+}
+
+.modeloItemAgenda-data {
+	background-color: #fff;
+	width: 25%;
+	text-align: center;
+	height: 80px;
+    margin-top: -8px;
+    margin-left: 8px;
+    position: absolute;
+    border: 1px solid #dadada;
+}
+
+.modeloItemAgenda-data h3 {
+	font-size: 40px;
+	line-height: 1rem;
+}
+
+.modeloItemAgenda-data h4 {
+	font-size: 15px;
+}
+
+.modeloItemAgenda-membros {
+	display: inline-flex;
+}
+
+.modeloItemAgenda-avatares {
+    padding-top: 11px;
+    margin-left: 5px;
+}
+
+.modeloItemAgenda-local {
+	padding: 8px;
+}
+
+.modeloItemAgenda-nomeEvento {
+	font-size: 18px;
+	float: right;
+	margin-top: 10px;
+	margin-left: 105px;
+	padding-left: 10px;
+	background-color: #fff;
+	height: 25px;
+	width: 69%;
+	position: absolute;
+    border: 1px solid #dadada;
+}
+
+.modeloItemAgenda-nomeEvento p {
+	margin-top: 0;
+	color: #000;
+}
+
+.modeloItemAgenda-horario p {
+	color: #fff;
+	font-size: 15px;
+	margin-left: 105px;
+	padding-top: 50px;
+}
+
+.modeloItemAgenda-player {
+	margin-top: 10px;
+	margin-left: 105px;
+	background-color: #fff;
+	width: 18%;
+	position: absolute;
+	height: 70%;
+}
+
+.modeloItemAgenda-player ion-icon {
+	color: #081522;
+	margin-left: 10px;
+	font-size: 80px;
+}
+
+.modeloItemAgenda-horarioGravacao p {
+	color: #fff;
+	font-size: 15px;
+	margin-left: 175px;
+	padding-top: 50px;
+}
+
+.modeloItemAgenda-texto {
+	font-size: 12px;
+	background-color: #fff;
+	margin-left: 100px;
+	padding: 5px;
+	margin-top: 8px;
+	width: 72%;
+	max-height: 85%;
+	position: absolute;
+    border: 1px solid #dadada;
+}
+
+.modeloItemAgenda-texto2 {
+	font-size: 12px;
+	color: #fff;
+	padding: 5px;
+	margin-top: 8px;
+	padding-bottom: 40px;
+}
+
+
+ion-col[width-14] {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 10%;
+    -ms-flex: 0 0 10%;
+    flex: 0 0 14.2857%;
+    max-width: 14.2857;
+}

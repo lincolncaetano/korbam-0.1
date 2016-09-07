@@ -1,0 +1,124 @@
+<ion-header>
+  <ion-navbar>
+    <ion-searchbar [(ngModel)]="searchQuery" (input)="onKey($event)"></ion-searchbar>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-branco">
+
+<ion-card class="cardFeed">
+
+  <ion-item *ngFor="let item of items" (click)="goUsuario(item.id)">
+      <ion-avatar item-left>
+        <img src="img/bradley.jpg">
+      </ion-avatar>
+      <h2>{{item.username}}</h2>
+  </ion-item>
+</ion-card>
+
+
+<!-- EXEMPLO DE POSTAGEM NO FEED
+
+<ion-card class="cardFeed">
+
+  <ion-item>
+      <ion-avatar item-left>
+        <img src="img/bradley.jpg">
+      </ion-avatar>
+      <h2>Bradley Cooper</h2>
+      <p>7 minutos atrás</p>
+  </ion-item>
+
+  <ion-card-content>
+      <p>
+        Cuidado! Trabalhe muito e alguem dia alguém vai dizer que você teve sorte!
+      </p>
+  </ion-card-content>
+
+  <img src="img/nin-live.png"/>
+
+
+  <ion-row no-padding>
+      <ion-col text-center>
+          <button clear small danger><ion-icon name='thumbs-up'></ion-icon>666 likes</button>
+      </ion-col>
+  </ion-row>
+
+</ion-card> -->
+
+<!-- FIM: EXEMPLO DE POSTAGEM NO FEED -->
+
+<!-- EXEMPLO DE COMENTÁRIO
+
+<ion-card class="cardFeed">
+
+  <ion-item>
+      <ion-icon name='ios-chatbubbles-outline' item-left></ion-icon>
+      <h4>Rauil Gomes</h4>
+      <p>agora mesmo</p>
+  </ion-item>
+
+  <ion-card-content>
+      <p>
+        Parabéns aproveita a viagem doido! <strong>#hinode</strong> <strong>#apocalipse</strong>
+      </p>
+  </ion-card-content>
+
+</ion-card> -->
+
+<!-- FIM: EXEMPLO DE COMENTÁRIO -->
+
+<!-- EXEMPLO DE COMENTÁRIO
+
+<ion-card class="cardFeed">
+
+  <ion-item>
+      <ion-icon name='ios-chatbubbles-outline' item-left></ion-icon>
+      <h4>Filipe Rodrigues</h4>
+      <p>27 minutos atrás</p>
+  </ion-item>
+
+  <ion-card-content>
+      <p>
+        Tamo junto mano! Parabéns pelo Triplo Diamante! <strong>#hinode</strong> <strong>#apocalipse</strong>
+      </p>
+  </ion-card-content>
+
+</ion-card> -->
+
+<!-- FIM: EXEMPLO DE COMENTÁRIO -->
+
+</ion-content>
+
+
+<!-- RESULTADO DE PESQUISA -->
+<!--
+<ion-card class="cardFeed">
+
+  <ion-item>
+      <ion-avatar item-left>
+        <img src="img/bradley.jpg">
+      </ion-avatar>
+      <h2>Bradley Cooper</h2>
+  </ion-item>
+
+  <hr />
+
+  <ion-item>
+      <ion-avatar item-left>
+        <img src="img/bradley.jpg">
+      </ion-avatar>
+      <h2>Filipe Rodrigues</h2>
+  </ion-item>
+
+  <hr />
+
+  <ion-item>
+      <ion-avatar item-left>
+        <img src="img/bradley.jpg">
+      </ion-avatar>
+      <h2>Rauil Gomes</h2>
+  </ion-item>
+
+</ion-card>
+-->

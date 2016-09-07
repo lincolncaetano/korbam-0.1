@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{nome}}</ion-title>
+    <ion-buttons end>
+      <button *ngIf="isAdmin" (click)="editarGrupo()" >
+        <ion-icon name="brush"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="bg-branco">
+
+  <div>
+    <ion-segment [(ngModel)]="segGrupo">
+      <ion-segment-button value="eventos">
+        Eventos
+      </ion-segment-button>
+      <ion-segment-button value="participantes">
+        Participantes
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="segGrupo">
+    <ion-list *ngSwitchCase="'eventos'">
+
+<!--      <div class="modeloItemAgenda1">
+
+        <div class="modeloItemAgenda-data">
+          <h3>12</h3>
+          <h4>quinta</h4>
+        </div>
+
+        <div class="modeloItemAgenda-nomeEvento">
+          <p>Titulo</p>
+        </div>
+
+        <div class="modeloItemAgenda-horario">
+          <p>14:00 às 15:30</p>
+        </div>
+
+      </div> -->
+
+    </ion-list>
+
+    <div *ngSwitchCase="'participantes'">
+
+        <center *ngIf="isAdmin">
+          <button class="botaoCriarGrupo" style="margin-top: 20px;" (click)="criarGrupo()" small block><ion-icon name="person-add"></ion-icon>adicionar participante</button>
+        </center>
+
+        <ion-list>
+
+          <ion-item *ngFor="let item of listaUsuarios">
+            <ion-label>{{item.username}}</ion-label>
+            <ion-avatar item-left>
+              <img src="img/bradley.jpg">
+            </ion-avatar>
+            <ion-note item-right *ngIf="item.id == adminGrupo.id">
+             admin
+            </ion-note>
+          </ion-item>
+
+        </ion-list>
+    </div>
+
+  </div>
+
+</ion-content>

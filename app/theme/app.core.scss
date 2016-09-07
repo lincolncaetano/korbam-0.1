@@ -1,0 +1,124 @@
+// http://ionicframework.com/docs/v2/theming/
+
+
+// App Shared Imports
+// --------------------------------------------------
+// These are the imports which make up the design of this app.
+// By default each design mode includes these shared imports.
+// App Shared Sass variables belong in app.variables.scss.
+
+@import '../pages/home/home';
+@import '../pages/cadastrar-evento/cadastrar-evento';
+@import '../pages/perfil/perfil';
+@import '../pages/editar-perfil/editar-perfil';
+@import '../pages/inicial/inicial';
+@import '../pages/agenda/agenda';
+@import '../pages/evento/evento';
+@import '../pages/notificacoes/notificacoes';
+@import '../pages/lista-grupos/lista-grupos';
+
+
+ion-label[stacked],
+ion-label[floating] {
+  flex-basis: auto;
+}
+
+ion-nav.has-views, ion-tab.has-views {
+    background-color: #fff !important;
+}
+
+.tab-button-icon {
+    color: #081522;
+}
+
+ion-tabs ion-navbar-section {
+    display: none;
+}
+
+.mostrarNav {
+    display: block;
+}
+
+h2 {
+    color: #000;
+}
+
+.cardFeed {
+    margin: 0;
+    width: 100%;
+    font-size: 1.4rem;
+    background: #fff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 0;
+    border-bottom: 1px solid #dadada;
+}
+
+tab-highlight {
+    background: #000;
+}
+
+.tab-button {
+    min-width: 40px;
+}
+
+/* FIM EDIÇÕES NO CORE DO IONIC */
+
+.bg {
+    background-color: #283339;
+}
+
+.bg-branco {
+    background-color: #fff;
+}
+
+.semPadding, .semPadding h3 {
+    padding: 0 !important;
+}
+
+#linhaSeparadora {
+    background-color: #fff;
+    width: 10%;
+}
+
+.inputBuscaFeed {
+    padding: 0;
+    border: 0;
+    background: none;
+    margin-top: 3px;
+}
+
+.inputBuscaAgenda {
+    padding: 0;
+    border: 0;
+    //background: #081522;
+    background: #3d83b8;
+    margin-top: 3px;
+    //color: #141414;
+    //background-color: #fff;
+    //background-position: 8px center;
+    //box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+.inputBuscaAddMembrosEvento {
+    padding: 0;
+    border: 0;
+    background: none;
+    margin-top: 3px;
+}
+
+.inputBuscaAddMembrosEvento .searchbar-input {
+    background-color: #c6d5e2;
+}
+
+.grupoListaItem {
+    margin-top: 10px;
+    height: 60px;
+}
+
+.botaoCriarGrupo {
+    width: 60%;
+    margin-top: 2px;
+    margin-bottom: 20px;
+    background-color: #165171;
+    text-transform: none;
+}

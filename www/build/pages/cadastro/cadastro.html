@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Cadastro</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg">
+    <form #signupForm="ngForm" novalidate>
+
+
+        <ion-list style="margin-top: 40%;">
+
+          <ion-item>
+            <ion-input [(ngModel)]="signup.email" ngModel name="email" type="text" placeholder="E-mail" #email="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <p [hidden]="email.valid || submitted == false" danger padding-left>
+            E-mail is required
+          </p>
+
+          <ion-item>
+            <ion-input [(ngModel)]="signup.username" ngModel name="username" type="text" placeholder="Username" #username="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <p [hidden]="username.valid || submitted == false" danger padding-left>
+            Username is required
+          </p>
+
+          <ion-item>
+            <ion-input [(ngModel)]="signup.password" ngModel name="password" type="password" placeholder="Password" #password="ngModel" required>
+            </ion-input>
+          </ion-item>
+          <p [hidden]="password.valid || submitted == false" danger padding-left>
+            Password is required
+          </p>
+
+        </ion-list>
+
+        <div padding>
+            <button block (click)="doSignup(signupForm)">SIGN UP</button>
+        </div>
+    </form>
+    <hr id="linhaSeparadora"/>
+
+    <div padding>
+        <center>
+          <button style="background-color: #3b5998; width: 50px;">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </button>
+          <button style="background-color: #d34836; width: 50px;">
+            <ion-icon name="logo-googleplus"></ion-icon>
+          </button>
+        </center>
+    </div>
+
+</ion-content>

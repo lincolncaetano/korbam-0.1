@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Recuperação de senha</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg">
+    <form #tokenForm="ngForm" novalidate>
+
+        <ion-list style="margin-top: 55%;">
+
+          <ion-item>
+              <ion-input [(ngModel)]="usuario.email" ngModel name="username" type="email" #username="ngModel" placeholder="Email" required></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-input [(ngModel)]="usuario.token" ngModel name="token" type="text" #token="ngModel" placeholder="Token" required></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-input [(ngModel)]="usuario.password" ngModel name="password" type="password" #password="ngModel" placeholder="New password" required></ion-input>
+          </ion-item>
+          <ion-item>
+              <ion-input [(ngModel)]="usuario.confirmPwd" ngModel name="confirmPwd" type="password" #confirmPwd="ngModel" placeholder="Confirm password" required></ion-input>
+          </ion-item>
+
+
+        </ion-list>
+
+        <div padding>
+            <button block (click)="doSalvar(tokenForm)" >SUBMIT</button>
+        </div>
+
+    </form>
+</ion-content>

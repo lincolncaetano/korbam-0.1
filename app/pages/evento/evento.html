@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{evento.titulo}}</ion-title>
+    <ion-buttons end>
+      <button *ngIf="isAdmin" (click)="editarEvento()" >
+        <ion-icon name="brush"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="bg-branco">
+
+  <div>
+    <ion-segment [(ngModel)]="segEvento">
+      <ion-segment-button value="descricao">
+        Descrição
+      </ion-segment-button>
+      <ion-segment-button value="participantes">
+        Participantes
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="segEvento">
+    <ion-list *ngSwitchCase="'descricao'">
+
+      <ion-grid>
+        <ion-row>
+          <ion-col width-33 class="evento-data">
+            <h3>{{evento.momento.date()}}</h3>
+            <h4>{{evento.momento.format('dddd')}}</h4>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+        </ion-row>
+      </ion-grid>
+
+  <!--      <div class="evento-data">
+          <h3>12</h3>
+          <h4>quinta</h4>
+        </div>
+
+        <div class="modeloItemAgenda-horario">
+          <p>14:00 às 15:30</p>
+        </div> -->
+
+
+    </ion-list>
+
+    <div *ngSwitchCase="'participantes'">
+
+        <center *ngIf="isAdmin">
+          <button class="botaoCriarGrupo" style="margin-top: 20px;" (click)="criarGrupo()" small block><ion-icon name="person-add"></ion-icon>adicionar participante</button>
+        </center>
+
+        <ion-list>
+
+          <ion-item *ngFor="let item of listaUsuarios">
+            <ion-label>{{item.username}}</ion-label>
+            <ion-avatar item-left>
+              <img src="img/bradley.jpg">
+            </ion-avatar>
+            <ion-note item-right *ngIf="item.id == evento.usuario.id">
+             admin
+            </ion-note>
+          </ion-item>
+
+        </ion-list>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-navbar>
+    <ion-searchbar (input)="getItems($event)"></ion-searchbar>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="bg-branco">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <center>
+    <button class="botaoCriarGrupo" (click)="criarGrupo()" small block><ion-icon name="person-add"></ion-icon>novo grupo</button>
+  </center>
+
+  <ion-list style="color: #000">
+
+    <ion-item class="grupoListaItem" *ngFor="let item of meusGrupos" (click)="abreGrupo(item)">
+      <ion-icon name="md-contacts" item-left></ion-icon>
+        {{item.nome}}
+      <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+    </ion-item>
+
+  </ion-list>
+
+
+</ion-content>
+
+<!--
+
+<ion-list style="color: #000">
+
+<ion-item class="grupoListaItem">
+  <ion-icon name="md-contacts" item-left></ion-icon>
+    Grupo 1
+  <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+</ion-item>
+
+<ion-item class="grupoListaItem">
+  <ion-icon name="md-contacts" item-left></ion-icon>
+    Grupo 2
+  <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+</ion-item>
+
+<ion-item class="grupoListaItem">
+  <ion-icon name="md-contacts" item-left></ion-icon>
+    Grupo 3
+  <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+</ion-item>
+
+<ion-item class="grupoListaItem">
+  <ion-icon name="md-contacts" item-left></ion-icon>
+    Grupo 4
+  <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+</ion-item>
+
+<ion-item class="grupoListaItem">
+  <ion-icon name="md-contacts" item-left></ion-icon>
+    Grupo 5
+  <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+</ion-item>
+
+<ion-item class="grupoListaItem">
+  <ion-icon name="md-contacts" item-left></ion-icon>
+    Grupo 6
+  <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+</ion-item>
+
+<ion-item class="grupoListaItem">
+  <ion-icon name="md-contacts" item-left></ion-icon>
+    Grupo 7
+  <ion-icon name="md-arrow-round-forward" item-right></ion-icon>
+</ion-item>
+
+
+</ion-list>
+
+-->

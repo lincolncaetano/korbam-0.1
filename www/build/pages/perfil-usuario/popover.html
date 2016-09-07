@@ -1,0 +1,8 @@
+<ion-list>
+  <ion-item *ngIf="aceitarSolicitacao" (click)="aceitaSolicitaAmizade()">Aceitar amizade</ion-item>
+  <ion-item *ngIf="cancelarSolicitacao" (click)="cancelarsolicitaAmizade()">Cancelar solicitação</ion-item>
+
+  <ion-item *ngIf="!cancelarSolicitacao && !cancelarAmizade" (click)="amizade()">Adicionar como amigo</ion-item>
+  <ion-item (click)="close()">Evento Rápido</ion-item>
+  <ion-item *ngIf="cancelarAmizade" (click)="cancelarsolicitaAmizade()">Desfazer amizade</ion-item>
+</ion-list>

@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Cadastrar Evento</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="cadastrar-evento bg-branco">
+
+  <form class="formCadastrarEvento" #grupoForm="ngForm" novalidate>
+
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Nome do Grupo</ion-label>
+      <ion-input  type="text" [(ngModel)]="grupoCad.nome"  ngModel name="nome" #nome="ngModel" required></ion-input>
+    </ion-item>
+
+
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Descrição</ion-label>
+      <ion-textarea rows="3"  type="text" [(ngModel)]="grupoCad.descricao"  ngModel name="descricao" #descricao="ngModel" required></ion-textarea>
+    </ion-item>
+
+    <button block  style="color: #209760; margin-left: 5px; margin-right: 5px;" [disabled]="!grupoForm.valid" (click)="funcaoPraAceitarSubmeterForm(grupoForm)">
+      <ion-icon name="checkmark-circle"></ion-icon>
+    </button>
+
+
+  </form>
+
+</ion-content>

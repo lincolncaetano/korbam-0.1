@@ -1,0 +1,160 @@
+.perfil, .perfil h2 {
+    background-color: #283339;
+    color: #fff;
+}
+
+#capa {
+    position: relative;
+    background-color: #1a405d;
+    width: 100%;
+    height: 10%;
+}
+
+.imagemPerfil {
+    width: 150px;
+	height: 150px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 10%;
+	margin-left: auto;
+ 	margin-right: auto;
+
+}
+
+.botaoOverlay {
+    width: 30px;
+    height: 30px;
+	border-radius: 250px;
+	-webkit-border-radius: 250px;
+	-moz-border-radius: 250px;
+    background-color: #fff;
+    margin-left: 63%;
+    margin-top: 11%;
+    position: absolute;
+}
+
+.botaoOverlay-b {
+    width: 32px;
+    height: 32px;
+	border-radius: 250px;
+	-webkit-border-radius: 250px;
+	-moz-border-radius: 250px;
+    background-color: #fff;
+    margin-left: 46%;
+    margin-top: 17%;
+    position: absolute;
+}
+
+.botao {
+    font-size: 45px;
+    color: #209760;
+    position: absolute;
+}
+
+.botaoAdd {
+    margin-left: 63%;
+    margin-top: 9%;
+}
+
+.botaoPerfil {
+    margin-left: 45%;
+    margin-top: 15%;
+}
+
+.perfilInfo {
+    margin-top: 30%;
+    text-align: center;
+    font-style: italic;
+}
+
+.perfilInfo .linhaSeparadoraPerfil {
+    background-color: #fff;
+    width: 48%;
+}
+
+.perfilInfo h1 { font-size: 26px;  }
+.perfilInfo h2 { font-size: 20px;  }
+
+.perfilOpcoes {
+
+    position: absolute;
+	left: 0;
+	right: 0;
+	top: 37%;
+	margin-left: auto;
+ 	margin-right: auto;
+    display: none;
+
+	background: #fff;
+	border: 1px solid #7e85a8;
+    width: 80%;
+	height: 15%;
+    background-color: #fff;
+    color: #000;
+    padding: 10px;
+
+}
+
+.perfilOpcoes:after, .arrow_box:before {
+	bottom: 100%;
+	left: 70%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.perfilOpcoes:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-bottom-color: #fff;
+	border-width: 20px;
+	margin-left: -20px;
+}
+
+.perfilOpcoes:before {
+	border-color: rgba(126, 133, 168, 0);
+	border-bottom-color: #7e85a8;
+	border-width: 21px;
+	margin-left: -21px;
+}
+
+.perfilOpcoes a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.perfilOpcoes .linhaSeparadoraPerfilOpcoes {
+    background-color: #a89e9e;
+}
+
+.perfilOpcoes .linkDesabilitado {
+    color: #969393;
+}
+
+@-webkit-keyframes animaSlide {
+  0% {
+    -webkit-transform: translate3d(0,-20%,0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(0,0,0);
+  }
+}
+
+.anima-slide {
+ -webkit-animation: animaSlide ease-in 1;
+  animation: animaSlide ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 750ms;
+  animation-duration: 750ms;
+}

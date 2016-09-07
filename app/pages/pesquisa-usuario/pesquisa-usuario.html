@@ -1,0 +1,17 @@
+<ion-navbar *navbar>
+  <ion-searchbar [(ngModel)]="searchQuery" (input)="onKey($event)"></ion-searchbar>
+</ion-navbar>
+
+<ion-content class="bg">
+
+
+  <ion-list #list>
+      <ion-item *ngFor="#item of items" (click)="goUsuario(item.id)">
+          <ion-avatar item-left>
+            <img src="{{item.foto}}">
+          </ion-avatar>
+          <h2 opnion>{{item.username}}</h2>
+      </ion-item>
+  </ion-list>
+
+</ion-content>
