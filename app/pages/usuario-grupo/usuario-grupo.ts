@@ -11,6 +11,7 @@ export class UsuarioGrupoPage {
     return [[NavController],[NavParams],[GrupoService],[LoadingController]];
   }
 
+  public namePage : any = "UsuarioGrupoPage";
   public nav: NavController;
   public searchQuery : string;
   public items : any;
@@ -137,20 +138,7 @@ export class UsuarioGrupoPage {
   salvarGrupoComplete(){
     //if(this.eventoResp != null){
 
-      let loading = this.loadingController.create({
-        spinner: 'dots'
-      });
-
-      loading.present();
-      this.grupoCad.usuario = {id: 5};
-
-      setTimeout(() => {
-        this.nav.popToRoot();
-      }, 500);
-
-      setTimeout(() => {
-        loading.dismiss();
-      }, 1000);
+    this.nav.popToRoot();
 
   //  }
   }

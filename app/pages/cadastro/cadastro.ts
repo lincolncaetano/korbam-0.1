@@ -43,10 +43,14 @@ export class CadastroPage {
         .subscribe(
           data => this.usuario = data,
           err => this.logError(err),
-          () => console.log('Authentication Complete')
+          () => this.completeCad()
         );
 
       }
+    }
+
+    completeCad(){
+       this.nav.pop();
     }
 
     logError(err){

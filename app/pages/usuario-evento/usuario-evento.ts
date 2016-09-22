@@ -1,6 +1,9 @@
 import {Page, NavController, NavParams, LoadingController} from 'ionic-angular';
+import {LocalNotifications} from 'ionic-native';
 import {AmizadeService} from '../../services/AmizadeService';
 import {TabsPage} from '../tabs/tabs';
+
+import * as moment from 'moment';
 
 @Page({
   templateUrl: 'build/pages/usuario-evento/usuario-evento.html',
@@ -11,6 +14,7 @@ export class UsuarioEventoPage {
     return [[NavController],[NavParams],[AmizadeService],[LoadingController]];
   }
 
+  public namePage : any = "UsuarioEventoPage";
   public nav: NavController;
   public searchQuery : string;
   public items : any;
@@ -28,8 +32,9 @@ export class UsuarioEventoPage {
     this.searchQuery = '';
 
 
+
     this.eventoCad = navParams.get('evento');
-    console.log(this.eventoCad);
+
 
 
     this.initializeItems();
@@ -144,7 +149,6 @@ export class UsuarioEventoPage {
       }
     }
 
-    console.log(lista);
     this.eventoCad.listaUsuario = lista;
 
     this.service.salvarEvento(this.eventoCad)
@@ -160,19 +164,21 @@ export class UsuarioEventoPage {
   }
 
   salvarEventoComplete(){
-    let loading = this.loadingController.create({
-      spinner: 'dots'
+
+    console.log(this.eventoCad.dtInicioString);
+    let selectedDate = moment(this.eventoCad.dtInicioString+" "+this.eventoCad.hrInicial, 'YYYY-MM-DD HH:mm');
+    console.log(selectedDate.toDate());
+
+    LocalNotifications.schedule({
+       id: 1,
+       text: 'Delayed Notification',
+       at: selectedDate.toDate(),
+       led: 'FF0000',
+       sound: 'file://beep.caf'
     });
 
-    loading.present();
+    this.nav.popToRoot();
 
-    setTimeout(() => {
-      this.nav.first()
-    }, 500);
-
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000);
 
   }
 

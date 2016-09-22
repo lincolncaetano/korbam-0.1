@@ -34,6 +34,7 @@ export class AgendaPage {
   private cannonical: number;
 
   private nav : NavController;
+  private navParams : NavParams;
   public dataSelect: string;
   private service: UsuarioService;
   private listaEventos: any;
@@ -47,11 +48,13 @@ export class AgendaPage {
   @Input('view-format') viewFormat: string;
   private firstWeekDaySunday: boolean;
   private calendario: any;
+  private retornoPagina: any = false;
 
 
   constructor(nav,usuarioService,navParams) {
      this.nav = nav;
      this.service = usuarioService;
+     this.navParams = navParams;
 
      this.local.get('idUsuario').then(profile => {
        this.idUsuario = JSON.parse(profile);
@@ -64,6 +67,12 @@ export class AgendaPage {
 
      this.init();
    }
+
+  ionViewDidEnter() {
+    if(this.nav.last().instance.namePage == "UsuarioEventoPage"){
+      this.init();
+    }
+  }
 
   consultaEvento(data){
     console.log(data);

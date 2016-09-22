@@ -26,6 +26,16 @@ export class ListaGruposPage {
     this.idUsuarioLogado = navParams.data;
     this.service = grupoService;
 
+    this.init();
+  }
+
+  ionViewDidEnter() {
+    if(this.nav.last().instance.namePage == "UsuarioGrupoPage"){
+      this.init();
+    }
+  }
+
+  init(){
     this.service.buscaGruposIdUsuario(this.idUsuarioLogado)
     .subscribe(
       data => this.retorno = data,

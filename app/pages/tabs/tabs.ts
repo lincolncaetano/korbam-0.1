@@ -86,7 +86,6 @@ export class TabsPage {
 	}
 
 	chat(){
-		console.log("asasas");
 		this.nNotif = 0;
 	}
 

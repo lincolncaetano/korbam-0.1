@@ -46,14 +46,6 @@ export class MyApp {
           console.log(e.message);
       });
 
-      LocalNotifications.schedule({
-         text: 'Delayed Notification',
-         at: new Date(new Date().getTime() + 60000),
-         led: 'FF0000',
-         sound: 'file://beep.caf'
-      });
-
-
 
     });
   }
