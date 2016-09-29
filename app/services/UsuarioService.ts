@@ -8,6 +8,7 @@ export class UsuarioService {
   private headers: Headers;
   private urlServer = "http://risidevelop.com.br/korbam";
   //private urlServer = "http://localhost:8080/korbam";
+  //private urlServer = "http://192.168.0.102:8080/korbam";
 
   constructor(http) {
     this.http = http;
@@ -32,6 +33,11 @@ export class UsuarioService {
 
         //var url = 'http://localhost:8080/korbam/cadastrarUsuario';
         var url = this.urlServer+'/cadastrarUsuario';
+        return this.http.post(url, JSON.stringify({usr : usuarioCad}), {headers: this.headers}).map(res => res.json());
+    }
+
+    editarUsuario(usuarioCad) {
+        var url = this.urlServer+'/editarUsuario';
         return this.http.post(url, JSON.stringify({usr : usuarioCad}), {headers: this.headers}).map(res => res.json());
     }
 
@@ -68,7 +74,6 @@ export class UsuarioService {
 
     salvarEvento(evento) {
 
-        //var url = 'http://localhost:8080/korbam/salvarEvento';
         var url = this.urlServer+'/salvarEvento';
         return this.http.post(url, JSON.stringify({evento : evento}), {headers: this.headers}).map(res => res.json());
     }
@@ -79,14 +84,22 @@ export class UsuarioService {
     }
 
     buscaEventoUsuarioPorUsuarioData(id, data){
-      //var url = 'http://localhost:8080/korbam/buscaEventoUsuarioPorUsuarioData/'+id+"/"+data;
       var url = this.urlServer+'/buscaEventoUsuarioPorUsuarioData/'+id+"/"+data;
       return this.http.get(url).map(res => res.json());
     }
 
     buscaUsuarioEventoPendente(id){
-      //var url = 'http://localhost:8080/korbam/buscaEventoUsuarioPorUsuarioData/'+id+"/"+data;
       var url = this.urlServer+'/buscaUsuarioEventoPendente/'+id;
+      return this.http.get(url).map(res => res.json());
+    }
+
+    cadastrarTokenDevice(usuarioDevice) {
+      var url = this.urlServer+'/cadastrarTokenDevice';
+      return this.http.post(url, JSON.stringify({userDevice : usuarioDevice}), {headers: this.headers}).map(res => res.json());
+    }
+
+    buscaTodosUsuarioEventoPorIdUsuario(id){
+      var url = this.urlServer+'/buscaTodosUsuarioEventoPorIdUsuario/'+id;
       return this.http.get(url).map(res => res.json());
     }
 

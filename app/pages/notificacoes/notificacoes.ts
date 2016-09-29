@@ -45,7 +45,7 @@ export class NotificacoesPage {
   buscaNotifComplete(){
     if(this.retorno != false){
       this.notificacoes = this.retorno;
-      console.log(this.notificacoes);
+      
       for(let notif of this.retorno){
         if(notif.evento != null){
           let selectedDate = moment(notif.evento.dtInicio, moment.ISO_8601);

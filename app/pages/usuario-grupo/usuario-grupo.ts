@@ -30,9 +30,6 @@ export class UsuarioGrupoPage {
 
 
     this.grupoCad = navParams.get('grupo');
-    console.log(this.grupoCad);
-
-
     this.initializeItems();
   }
 
@@ -120,8 +117,6 @@ export class UsuarioGrupoPage {
       }
     }
     this.grupoCad.listaUsuario = lista;
-
-    console.log(this.grupoCad);
 
     this.service.salvarGrupo(this.grupoCad)
     .subscribe(

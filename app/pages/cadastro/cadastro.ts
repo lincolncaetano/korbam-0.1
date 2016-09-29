@@ -35,7 +35,7 @@ export class CadastroPage {
     this.submitted = false;
   }
   doSignup(form) {
-      console.log(form);
+    
 
       if(form.valid){
 

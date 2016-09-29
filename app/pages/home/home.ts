@@ -1,5 +1,6 @@
-import {Page, NavController} from 'ionic-angular';
+import {Page, NavController, Platform} from 'ionic-angular';
 import {Storage, LocalStorage} from 'ionic-angular';
+import {Push} from 'ionic-native';
 import {Component} from '@angular/core';
 import {UsuarioService} from '../../services/UsuarioService';
 
@@ -14,7 +15,7 @@ import {TabsPage} from '../tabs/tabs';
 export class HomePage {
 
   static get parameters() {
-    return [[NavController],[UsuarioService]];
+    return [[NavController],[UsuarioService], [Platform]];
   }
 
   public name: String;
@@ -25,11 +26,13 @@ export class HomePage {
   private service : UsuarioService;
   private nav : NavController;
   public local: Storage = new Storage(LocalStorage);
+  private platform : Platform;
 
-  constructor(nav,usuarioService) {
+  constructor(nav,usuarioService, platform) {
 
     this.nav = nav;
     this.service = usuarioService;
+    this.platform = platform;
     this.name = "Nome";
     this.login = {};
     this.submitted = false;
@@ -73,18 +76,77 @@ export class HomePage {
   }
 
   logError(err){
-
+    console.log(err);
   }
 
   loginComplete(){
 
     if (this.usrRe != false && this.usrRe != null) {
+
+      let push = Push.init({
+          android: {
+              senderID: "325117634477"
+          },
+          ios: {
+              alert: "true",
+              badge: true,
+              sound: 'true'
+          },
+          windows: {}
+      });
+
+      push.on('registration', (data) => {
+          console.log("device token ->"+data.registrationId);
+          var platf;
+          if(this.platform.is('ios')){
+            platf = "I";
+          }else{
+            platf = "A";
+          }
+
+          var usuarioDevice = {
+            usuario:{
+              id: this.usrRe.id
+            },
+            tokenDevice: data.registrationId,
+            tipoDevice: platf,
+          };
+
+          this.service.cadastrarTokenDevice(usuarioDevice)
+          .subscribe(
+            data => this.cadUserDevSucess(data),
+            err => this.logError(err),
+            () => this.cadUserDevComplete()
+          );
+      });
+
+      push.on('notification', (data) => {
+          console.log(data.message);
+          console.log(data.title);
+          console.log(data.count);
+          console.log(data.sound);
+          console.log(data.image);
+          console.log(data.additionalData);
+      });
+
+      push.on('error', (e) => {
+          console.log(e.message);
+      });
+
       this.nav.push(TabsPage,{idUsuarioLogado: this.usrRe.id});
     }else {
-      alert("USARIO OU SENHA INVALIDO");
+      alert("USUARIO OU SENHA INVALIDO");
     }
 
     console.log('Authentication Complete');
+
+  }
+
+  cadUserDevSucess(data){
+      console.log(data);
+  }
+
+  cadUserDevComplete(){
 
   }
 

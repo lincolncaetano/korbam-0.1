@@ -13,6 +13,11 @@
     </ion-item>
 
     <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Descrição</ion-label>
+      <ion-textarea rows="3"  type="text" [(ngModel)]="eventoCad.descricao"  ngModel name="descricao" #descricao="ngModel" required></ion-textarea>
+    </ion-item>
+
+    <ion-item class="itemCadastrarEvento">
       <ion-label stacked class="labelCadastrarEvento">Data</ion-label>
       <ion-datetime class="inputModificado2" displayFormat="DD/MM/YYYY" [(ngModel)]="eventoCad.dtInicioString" ngModel name="dtInicioString" #dtInicioString="ngModel" required></ion-datetime>
     </ion-item>
@@ -41,21 +46,32 @@
 
     <ion-item class="itemCadastrarEvento">
       <ion-label stacked class="labelCadastrarEvento">Lembrete</ion-label>
-      <ion-select>
-        <ion-option value="1" checked="true">1hr antes</ion-option>
-        <ion-option value="2">2hrs antes</ion-option>
+      <ion-select [(ngModel)]="eventoCad.lembrete1" ngModel name="lembrete1" #lembrete1="ngModel" required>
+        <ion-option value="1">30 min antes</ion-option>
+        <ion-option value="2">1 hr antes</ion-option>
+        <ion-option value="3">2 hrs antes</ion-option>
+        <ion-option value="4">4 hrs antes</ion-option>
+        <ion-option value="5">8 hrs antes</ion-option>
+        <ion-option value="6">12 hrs antes</ion-option>
+        <ion-option value="7">1 dia antes</ion-option>
+        <ion-option value="8">2 dias antes</ion-option>
       </ion-select>
     </ion-item>
 
     <ion-item class="itemCadastrarEvento">
       <ion-label stacked class="labelCadastrarEvento">Lembrete 2</ion-label>
-      <ion-select>
-        <ion-option value="1" checked="true">1hr antes</ion-option>
-        <ion-option value="2">2hrs antes</ion-option>
+      <ion-select  [(ngModel)]="eventoCad.lembrete2" ngModel name="lembrete2" #lembrete2="ngModel" required>
+        <ion-option value="1">30 min antes</ion-option>
+        <ion-option value="2">1 hr antes</ion-option>
+        <ion-option value="3">2 hrs antes</ion-option>
+        <ion-option value="4">4 hrs antes</ion-option>
+        <ion-option value="5">8 hrs antes</ion-option>
+        <ion-option value="6">12 hrs antes</ion-option>
+        <ion-option value="7">1 dia antes</ion-option>
+        <ion-option value="8">2 dias antes</ion-option>
       </ion-select>
     </ion-item>
 
-    <br />
 
 
     <button block  style="color: #209760; margin-left: 5px; margin-right: 5px;" [disabled]="!eventoForm.valid" (click)="funcaoPraAceitarSubmeterForm(eventoForm)">

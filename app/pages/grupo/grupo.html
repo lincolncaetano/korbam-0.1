@@ -56,7 +56,8 @@
           <ion-item *ngFor="let item of listaUsuarios">
             <ion-label>{{item.username}}</ion-label>
             <ion-avatar item-left>
-              <img src="img/bradley.jpg">
+              <img src="{{item.fotoProfile}}" *ngIf="item.fotoProfile != null"/>
+              <img src="http://www.iconsfind.com/wp-content/uploads/2015/11/20151112_5643f331cf8c4.png" *ngIf="item.fotoProfile == null">
             </ion-avatar>
             <ion-note item-right *ngIf="item.id == adminGrupo.id">
              admin

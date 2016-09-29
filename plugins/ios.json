@@ -31,10 +31,18 @@
         "phonegap-plugin-push": {
             "SENDER_ID": "42908905109",
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
+        },
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-app-event": {
+            "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
+        },
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         }
     }

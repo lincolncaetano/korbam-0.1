@@ -1,6 +1,7 @@
 import {Page, NavController, NavParams, PopoverController} from 'ionic-angular';
 import {Storage, LocalStorage} from 'ionic-angular';
 import {Component} from '@angular/core';
+import * as moment from 'moment';
 
 import {AmizadeService} from '../../services/AmizadeService';
 import {PopoverPage} from './popover';
@@ -19,7 +20,9 @@ export class PerfilUsuarioPage {
   private nav : NavController;
   private idUsuario : any;
   private idUsuarioLogado : any;
+  private usuario : any;
   private usrRe : any;
+  private retorno : any;
   private amzRe : any;
   private username : String;
   public local: Storage = new Storage(LocalStorage);
@@ -30,12 +33,13 @@ export class PerfilUsuarioPage {
     this.service = amizadeService;
     this.nav = nav;
     this.popOver = popoverController;
+    this.usuario = {};
     this.idUsuario = navParams.get('idUsuario');
     this.idUsuarioLogado = navParams.get('idUsuarioLogado');
 
     this.service.pesquisaUsuarioPorId(this.idUsuario)
     .subscribe(
-      data => this.usrRe = data,
+      data => this.retorno = data,
       err => this.logError(err),
       () => this.loginComplete()
     );
@@ -43,7 +47,14 @@ export class PerfilUsuarioPage {
   }
 
   loginComplete(){
-    this.username = this.usrRe.username;
+    if(this.retorno != false){
+      this.usuario = this.retorno;
+      if(this.usuario.dataNascimento != null){
+        let selectedDate = moment(this.usuario.dataNascimento, 'YYYY-MM-DD');
+        this.usuario.dataNascimentoString = selectedDate.format('YYYY-MM-DD');
+        this.usuario.idade = moment().diff(selectedDate, 'years');
+      }
+    }
   }
 
   amizadeComplete(amizade){
@@ -64,9 +75,6 @@ export class PerfilUsuarioPage {
       status: 'P'
     };
 
-    console.log(amizade);
-
-
     this.service.solicitaAmizade(amizade)
     .subscribe(
       data => this.usrRe = data,
@@ -85,7 +93,7 @@ export class PerfilUsuarioPage {
 
   presentPopover(myEvent) {
     let popover = this.popOver.create(PopoverPage,{
-      usuario : this.usrRe,
+      usuario : this.usuario,
       usuarioLogado: this.idUsuarioLogado,
       cancelarSolicitacao: this.cancelarSolicitacao
     });

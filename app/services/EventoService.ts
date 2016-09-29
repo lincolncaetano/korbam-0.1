@@ -7,7 +7,7 @@ export class EventoService {
 
   public http:Http;
   private headers: Headers;
-  //private urlServer = "http://192.168.0.30:8080/korbam";
+  //private urlServer = "http://192.168.0.102:8080/korbam";
   //private urlServer = "http://localhost:8080/korbam";
   private urlServer = "http://risidevelop.com.br/korbam";
 
@@ -27,6 +27,11 @@ export class EventoService {
   buscaListaUsuarioPorEvento(idEvento){
     var url = this.urlServer+'/buscaListaUsuarioPorEvento/'+idEvento;
     return this.http.get(url).map(res => res.json());
+  }
+
+  salvarUsuarioEvento(usuarioEvento) {
+      var url = this.urlServer+'/salvarUsuarioEvento';
+      return this.http.post(url, JSON.stringify({usuarioEvento : usuarioEvento}), {headers: this.headers}).map(res => res.json());
   }
 
 }

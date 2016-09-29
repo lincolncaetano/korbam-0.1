@@ -44,7 +44,7 @@
             </ion-col>
           </ion-row>
           <ion-row *ngFor="let week of weeks" class="date">
-            <ion-col width-14 *ngFor=" let d of week; let i = index;" class="day" [ngClass]="{'disabled': !d.enabled, 'selected': isSelected(d)}" tappable (click)="selectDate($event, d)">
+            <ion-col width-14 *ngFor=" let d of week; let i = index;" class="day" [ngClass]="{'disabled': !d.enabled, 'ocupado': isOcupado(d), 'selected': isSelected(d)}" tappable (click)="selectDate($event, d)">
             {{ d.day }}
             </ion-col>
           </ion-row>
@@ -68,16 +68,16 @@
               <div class="modeloItemAgenda1" (click)="abrirEvento(item)">
 
                 <div class="modeloItemAgenda-data">
-                  <h3>{{item.momento.date()}}</h3>
-                  <h4>{{item.momento.format('dddd')}}</h4>
+                  <h3>{{item.evento.momento.date()}}</h3>
+                  <h4>{{item.evento.momento.format('dddd')}}</h4>
                 </div>
 
                 <div class="modeloItemAgenda-nomeEvento">
-                  <p>{{item.titulo}}</p>
+                  <p>{{item.evento.titulo}}</p>
                 </div>
 
                 <div class="modeloItemAgenda-horario">
-                  <p>{{item.hrInicial}} às {{item.hrFinal}}</p>
+                  <p>{{item.evento.hrInicial}} às {{item.evento.hrFinal}}</p>
                 </div>
 
               </div>
@@ -94,16 +94,16 @@
         <div class="modeloItemAgenda1" (click)="abrirEvento(item)">
 
           <div class="modeloItemAgenda-data">
-            <h3>{{item.momento.date()}}</h3>
-            <h4>{{item.momento.format('dddd')}}</h4>
+            <h3>{{item.evento.momento.date()}}</h3>
+            <h4>{{item.evento.momento.format('dddd')}}</h4>
           </div>
 
           <div class="modeloItemAgenda-nomeEvento">
-            <p>{{item.titulo}}</p>
+            <p>{{item.evento.titulo}}</p>
           </div>
 
           <div class="modeloItemAgenda-horario">
-            <p>{{item.hrInicial}} às {{item.hrFinal}}</p>
+            <p>{{item.evento.hrInicial}} às {{item.evento.hrFinal}}</p>
           </div>
 
         </div>
@@ -116,7 +116,7 @@
 
       <div *ngFor="let item of convitesEvento">
 
-        <div class="modeloItemAgenda1" (click)="abrirEvento(item.evento)">
+        <div class="modeloItemAgenda1" (click)="abrirEvento(item)">
 
           <div class="modeloItemAgenda-data">
             <h3>{{item.evento.momento.date()}}</h3>

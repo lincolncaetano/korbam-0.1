@@ -7,31 +7,20 @@
 
   <a href="#" (click)="editar()" style="position: absolute; z-index: inherit; right: 30px; font-size: x-large;
     color: white;">
-      <ion-icon name="ios-settings"></ion-icon>
+      <ion-icon name="settings"></ion-icon>
   </a>
 
     <div id="capa"><img src="img/capa.jpg"></div>
 
-    <div class="botaoOverlay"></div>
-    <img class="imagemPerfil" src="img/bradley.jpg" />
-
-    <a href="#" (click)="mostrarOpcoes('PO')">
-        <ion-icon name="add-circle" class="botao botaoAdd"></ion-icon>
-    </a>
-
-    <!--
-    <div class="botaoOverlay-b"></div>
-    <a href="#" (click)="mostrarOpcoes('PO')">
-        <ion-icon name="md-contact" class="botao botaoPerfil" dark></ion-icon>
-    </a>
-    -->
+    <img class="imagemPerfil" src="{{usuario.fotoProfile}}" *ngIf="usuario.fotoProfile != null"/>
+    <img class="imagemPerfil" src="http://www.iconsfind.com/wp-content/uploads/2015/11/20151112_5643f331cf8c4.png" *ngIf="usuario.fotoProfile == null">
 
     <div class="perfilInfo">
 
         <hr class="linhaSeparadoraPerfil" />
 
         <div id="nomePerfil">
-            <h1>{{username}}</h1>
+            <h1>{{usuario.username}}</h1>
         </div>
 
         <hr class="linhaSeparadoraPerfil" />
@@ -39,39 +28,30 @@
         <br />
 
         <div id="nomeperfil">
-            <h2>Rauil Gomes</h2>
+            <h2>{{usuario.nome}} {{usuario.ultimoNome}}</h2>
         </div>
 
         <div id="sexoperfil">
-            <h2>Masculino</h2>
+            <h2>{{usuario.sexo}}</h2>
         </div>
 
-        <div id="profissao">
-            <h2>Executivo Diamante Hinode</h2>
-        </div>
-
-        <div id="idade">
-            <h2>23 anos</h2>
+        <div id="idade" *ngIf="usuario.idade != null">
+            <h2>{{usuario.idade}} anos</h2>
         </div>
 
         <div id="estadoCivil">
-            <h2>Casado, 2 Filhos</h2>
+            <h2>{{usuario.estadoCivil}}</h2>
         </div>
 
         <div id="contato">
-            <h2>doug-cg@hotmail.com</h2>
-            <h2>(61) 9604-6873 (Claro)</h2>
+            <h2>{{usuario.email}}</h2>
+            <h2>{{usuario.celular}}</h2>
         </div>
 
-    </div>
+        <div id="contato" *ngIf="usuario.cidade != null">
+            <h2>{{usuario.cidade}}, {{usuario.estado}}, {{usuario.pais}}</h2>
+        </div>
 
-    <div class="perfilOpcoes anima-slide" id="PO">
-        <a href="#" (click)="solicitaAmizade()">Adicionar como amigo</a>
-        <br/>
-        <hr class="linhaSeparadoraPerfilOpcoes" />
-        <a href="#" class="linkDesabilitado">Solicitar Horário</a>
-        <br/>
-        <a href="#" class="linkDesabilitado">Evento Rápido</a>
     </div>
 
 </ion-content>

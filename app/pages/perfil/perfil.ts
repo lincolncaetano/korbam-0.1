@@ -1,65 +1,75 @@
 import {Page, NavController, NavParams} from 'ionic-angular';
 import {Storage, LocalStorage} from 'ionic-angular';
 import {Component} from '@angular/core';
+import * as moment from 'moment';
 
-import {AmizadeService} from '../../services/AmizadeService';
+import {UsuarioService} from '../../services/UsuarioService';
 import {EditarPerfilPage} from '../editar-perfil/editar-perfil';
 
 @Page({
   templateUrl: 'build/pages/perfil/perfil.html',
-  providers: [AmizadeService]
+  providers: [UsuarioService]
 })
 export class PerfilPage {
 
   static get parameters() {
-    return [[NavController],[NavParams],[AmizadeService]];
+    return [[NavController],[NavParams],[UsuarioService]];
   }
 
-  private service : AmizadeService;
+  private service : UsuarioService;
   private nav : NavController;
   public idUsuarioLogado : any;
   public idUsuario : number;
-  private usrRe : UsuarioInt;
+  private usuario : any;
+  private retorno: any;
   private username : String;
   public local: Storage = new Storage(LocalStorage);
 
-  constructor(nav, navParams, amizadeService) {
-    this.service = amizadeService;
+  constructor(nav, navParams, usuarioService) {
+    this.service = usuarioService;
     this.nav = nav;
-    this.idUsuarioLogado= navParams.data;
-
-    this.service.pesquisaUsuarioPorId(this.idUsuarioLogado)
-    .subscribe(
-      data => this.usrRe = data,
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
-
-    //console.log(this.service.pesquisaUsuarioPorId(this.idUsuarioLogado));
-    //this.username = "äsasas";
-
+    this.usuario = {};
+    this.init();
   }
 
-  sucess(data){
-    this.usrRe = data;
+  init(){
+    this.local.get('idUsuario').then(profile => {
+      this.idUsuarioLogado = JSON.parse(profile);
+
+      this.service.pesquisaUsuarioPorId(this.idUsuarioLogado)
+      .subscribe(
+        data => this.retorno = data,
+        err => this.logError(err),
+        () => this.pesquisaComplete()
+      );
+
+    }).catch(error => {
+      console.log(error);
+    });
+  }
+
+  ionViewDidEnter() {
+    if(this.nav.last().instance.namePage == "EditarPerfilPage"){
+      this.usuario = {};
+      this.init();
+    }
   }
 
   logError(err){
     console.log(err);
   }
 
-  loginComplete(){
-    this.username = this.usrRe.username;
+  pesquisaComplete(){
+    if(this.retorno != false){
+      this.usuario = this.retorno;
+      if(this.usuario.dataNascimento != null){
+        let selectedDate = moment(this.usuario.dataNascimento, 'YYYY-MM-DD');
+        this.usuario.dataNascimentoString = selectedDate.format('YYYY-MM-DD');
+        this.usuario.idade = moment().diff(selectedDate, 'years');
+      }
+    }
   }
 
-
-  mostrarOpcoes(elemento) {
-    var e = document.getElementById(elemento);
-    if (e.style.display == 'block')
-        e.style.display = 'none';
-    else
-        e.style.display = 'block';
-  }
 
   logout(){
     this.local.clear();
@@ -70,8 +80,4 @@ export class PerfilPage {
   editar(){
     this.nav.push(EditarPerfilPage, {idUsuarioLogado: this.idUsuarioLogado});
   }
-}
-
-interface UsuarioInt {
-    username: string;
 }

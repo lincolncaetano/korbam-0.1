@@ -7,7 +7,7 @@ export class NotificaoService {
 
   public http:Http;
   private headers: Headers;
-  //private urlServer = "http://192.168.0.30:8080/korbam";
+  //private urlServer = "http://192.168.0.102:8080/korbam";
   //private urlServer = "http://localhost:8080/korbam";
   private urlServer = "http://risidevelop.com.br/korbam";
 

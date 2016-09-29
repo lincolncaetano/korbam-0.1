@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Editar</ion-title>
+    <ion-buttons end>
+      <button (click)="salvarUsuario()">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -10,116 +15,80 @@
     <img src="http://33.media.tumblr.com/7c7b5856b7104883c6199c9d7a05d6b8/tumblr_inline_mymr5cRlPZ1r58g8q.png" width="100%" height="100%">
   </div>
 
-  <img class="imagemPerfil" src="https://pbs.twimg.com/profile_images/502803211833442307/JycNBKZD.jpeg" />
-
-  <div class="botaoOverlay1"></div>
-
-  <div class="botaoOverlay2"></div>
+  <img class="imagemPerfil" (click)="presentActionSheet()" src="{{usuarioCad.fotoProfile}}" *ngIf="usuarioCad.fotoProfile != null"/>
+  <img class="imagemPerfil" (click)="presentActionSheet()" src="http://www.iconsfind.com/wp-content/uploads/2015/11/20151112_5643f331cf8c4.png" *ngIf="usuarioCad.fotoProfile == null">
 
 
-  <a href="#" (click)="funcaoPraAceitarSubmeterForm()"><ion-icon name="checkmark-circle" class="botaoConfirma"></ion-icon></a>
 
-  <a href="#" (click)="funcaoPraRedirecionarPraOutroLugar()"><ion-icon name="close-circle" class="botaoRejeita"></ion-icon></a>
+  <form class="formCadastrarEvento" #usuarioForm="ngForm" style="margin-top: 82px;" novalidate>
 
-  <form class="editarPerfilForm" novalidate>
-
-    <br />
-    <hr style="background-color: grey;" />
-
-    <!-- Username -->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Username</span></ion-label>
-      <ion-input class="inputModificado"  type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Username</ion-label>
+      <ion-input  type="text" [(ngModel)]="usuarioCad.username"  ngModel name="username" #username="ngModel" required disabled></ion-input>
     </ion-item>
 
-    <!-- Primeiro nome -->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Primeiro nome</span></ion-label>
-      <ion-input class="inputModificado" type="text" required>
-      </ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Primeiro Nome</ion-label>
+      <ion-input  type="text" [(ngModel)]="usuarioCad.nome"  ngModel name="nome" #nome="ngModel"></ion-input>
     </ion-item>
 
-    <!-- Último nome -->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Ultimo nome</span></ion-label>
-      <ion-input class="inputModificado" type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Ultimo nome</ion-label>
+      <ion-input  type="text" [(ngModel)]="usuarioCad.ultimoNome"  ngModel name="ultimoNome" #ultimoNome="ngModel"></ion-input>
     </ion-item>
 
-    <br />
-
-    <!-- Sexo -->
-
-    <ion-item class="itemEditProfile">
-      <!-- <ion-label floating primary>Sexo</ion-label> -->
-      <ion-label><span class="labelEditProfile">Sexo</span></ion-label>
-      <ion-select>
-        <ion-option value="masculino" checked="true">Masculino</ion-option>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Sexo</ion-label>
+      <ion-select [(ngModel)]="usuarioCad.sexo" ngModel name="sexo" #sexo="ngModel">
+        <ion-option value="masculino">Masculino</ion-option>
         <ion-option value="feminino">Feminino</ion-option>
       </ion-select>
     </ion-item>
 
-    <!-- Telefone-->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Telefone celular</span></ion-label>
-      <ion-input class="inputModificado" type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Telefone celular</ion-label>
+      <ion-input  type="tel" [(ngModel)]="usuarioCad.celular"  ngModel name="celular" #celular="ngModel"></ion-input>
     </ion-item>
 
-
-    <!-- Data de nascimento -->
-
-
-    <ion-item class="itemEditProfile">
+    <ion-item class="itemCadastrarEvento">
       <ion-label stacked class="labelCadastrarEvento">Data de Nascimento</ion-label>
-      <ion-datetime class="inputModificado2" displayFormat="DD/MM/YYYY" required></ion-datetime>
+      <ion-datetime class="inputModificado2" min="1930" displayFormat="DD/MM/YYYY" [(ngModel)]="usuarioCad.dataNascimentoString" ngModel name="dataNascimentoString" #dataNascimentoString="ngModel"></ion-datetime>
     </ion-item>
 
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Estado civil</span></ion-label>
-      <ion-select>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Estado civil</ion-label>
+      <ion-select [(ngModel)]="usuarioCad.estadoCivil" ngModel name="estadoCivil" #estadoCivil="ngModel">
         <ion-option value="solteiro">Solteiro(a)</ion-option>
         <ion-option value="casado">Casado(a)</ion-option>
         <ion-option value="separado">Separado(a)</ion-option>
-        <ion-option value="viuvo">Divorciado(a)</ion-option>
+        <ion-option value="divorciado">Divorciado(a)</ion-option>
       </ion-select>
     </ion-item>
 
-    <!-- Email -->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Email</span></ion-label>
-      <ion-input class="inputModificado" type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Email</ion-label>
+      <ion-input  type="email" [(ngModel)]="usuarioCad.email"  ngModel name="email" #email="ngModel" required></ion-input>
     </ion-item>
 
-    <!-- Email alternativo-->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Email alternativo</span></ion-label>
-      <ion-input class="inputModificado" type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Email Alternativo</ion-label>
+      <ion-input  type="email" [(ngModel)]="usuarioCad.emailAlternativo"  ngModel name="emailAlternativo" #emailAlternativo="ngModel"></ion-input>
     </ion-item>
 
-    <!-- País-->
 
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">País</span></ion-label>
-      <ion-input class="inputModificado" type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">País</ion-label>
+      <ion-input  type="text" [(ngModel)]="usuarioCad.pais"  ngModel name="pais" #pais="ngModel"></ion-input>
     </ion-item>
 
-    <!-- Estado-->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Estado</span></ion-label>
-      <ion-input class="inputModificado" type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Estado</ion-label>
+      <ion-input  type="text" [(ngModel)]="usuarioCad.estado"  ngModel name="estado" #estado="ngModel"></ion-input>
     </ion-item>
 
-    <!-- Cidade-->
-
-    <ion-item class="itemEditProfile">
-      <ion-label><span class="labelEditProfile">Cidade</span></ion-label>
-      <ion-input class="inputModificado" type="text" required></ion-input>
+    <ion-item class="itemCadastrarEvento">
+      <ion-label stacked class="labelCadastrarEvento">Cidade</ion-label>
+      <ion-input  type="text" [(ngModel)]="usuarioCad.cidade"  ngModel name="cidade" #cidade="ngModel"></ion-input>
     </ion-item>
 
   </form>

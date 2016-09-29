@@ -37,9 +37,10 @@ export class AgendaPage {
   private navParams : NavParams;
   public dataSelect: string;
   private service: UsuarioService;
-  private listaEventos: any;
-  private meusEventos: any;
-  private convitesEvento: any;
+  private listaEventos: Object[] = [];
+  private meusEventos: Object[] = [];
+  private convitesEvento: Object[] = [];
+  private listaTodosEventos: any[] = [];
   private retorno: any;
   private idUsuario : number;
   private idUsuarioLogado : number;
@@ -75,7 +76,7 @@ export class AgendaPage {
   }
 
   consultaEvento(data){
-    console.log(data);
+    //console.log(data);
   }
 
 
@@ -104,27 +105,23 @@ export class AgendaPage {
     if (this.isSelected(date)) return;
 
     var dataEnv = date.day + '-' + date.month + '-' + date.year;
-
     let selectedDate = moment(date.year + '-' + date.month + '-' + date.day, 'YYYY-MM-DD');
     this.setValue(selectedDate);
 
-    this.service.buscaEventoUsuarioPorUsuarioData(this.idUsuario,dataEnv)
-    .subscribe(
-      data => this.buscaEventoSucess(data),
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
 
-  }
+    if(this.listaTodosEventos != []){
+      this.listaEventos = [];
+      for(let usuarioEvento of this.listaTodosEventos){
 
-  buscaEventoSucess(data){
-    this.retorno = data;
-    if(this.retorno != 'false'){
-        for(let evento of data){
-          let selectedDate = moment(evento.dtInicio, moment.ISO_8601);
-          evento.momento = selectedDate;
+        let dataEvento = moment(usuarioEvento.evento.dtInicio, moment.ISO_8601);
+
+        if(usuarioEvento.status == "A" && moment(selectedDate.format(this.modelFormat || 'YYYY-MM-DD')).isSame(dataEvento.format(this.modelFormat || 'YYYY-MM-DD'))){
+          this.listaEventos.push(usuarioEvento);
         }
+      }
     }
+
+
   }
 
   logError(err){
@@ -132,7 +129,7 @@ export class AgendaPage {
   }
 
   loginComplete(){
-    if(this.retorno != 'false'){
+    if(this.retorno != false){
       this.listaEventos = this.retorno;
     }else{
       this.listaEventos = [];
@@ -197,6 +194,21 @@ export class AgendaPage {
     return selectedDate.toDate().getTime() === this.cannonical;
   }
 
+  isOcupado(date) {
+    for(let usuarioEvento of this.listaTodosEventos){
+
+      let selectedDate = moment(usuarioEvento.evento.dtInicio, 'YYYY-MM-DD');
+      let selectedDate2 = moment(date.year+'-'+date.month+'-'+date.day, 'YYYY-MM-DD');
+      let marcar = moment(selectedDate).isSame(selectedDate2);
+
+      if(usuarioEvento.status == "A" && marcar){
+        if(!this.isSelected(date)){
+          return true;
+        }
+      }
+    }
+  }
+
   private generateDayNames(): void {
     this.dayNames = [];
     let date = this.firstWeekDaySunday === true ? moment('2015-06-07') : moment('2015-06-01');
@@ -210,98 +222,79 @@ export class AgendaPage {
 
   private setValue(value: any): void {
     let val = moment(value, this.modelFormat || 'YYYY-MM-DD');
-    this.viewValue = val.format(this.viewFormat || 'DD-MM-YYYY');
-    //this.cd.viewToModelUpdate(val.format(this.modelFormat || 'YYYY-MM-DD'));
+    this.viewValue = val.format(this.viewFormat || 'YYYY-MM-DD');
     this.cannonical = val.toDate().getTime();
-    //console.log(val);
 
   }
 
 
   private init(): void {
 
+    this.listaEventos =[];
+    this.meusEventos =[];
+    this.convitesEvento =[];
+
+
+
+    this.viewValue = moment().format(this.modelFormat || 'YYYY-MM-DD');
+    this.setValue(this.viewValue);
+
+    this.service.buscaTodosUsuarioEventoPorIdUsuario(this.idUsuarioLogado)
+    .subscribe(
+      data => this.buscaTodosUsuarioEventoSucess(data),
+      err => this.logError(err),
+      () => this.buscaComplete()
+    );
+
     this.date = moment();
     this.firstWeekDaySunday = true;
     this.generateDayNames();
     this.generateCalendar(this.date);
 
-    var dataEnv = moment().format(this.modelFormat || 'DD-MM-YYYY');
+  }
 
-    this.service.buscaEventoUsuarioPorUsuarioData(this.idUsuarioLogado, dataEnv)
-    .subscribe(
-      data => this.buscaEventoSucess(data),
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
+  buscaComplete(){
 
-    this.service.pesquisaEventoPorUsuario(this.idUsuarioLogado)
-    .subscribe(
-      data => this.buscaEventoPorUsuarioSucess(data),
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
+  }
 
-    this.service.buscaUsuarioEventoPendente(this.idUsuarioLogado)
-    .subscribe(
-      data => this.buscaEventosPendentesSucess(data),
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
+  buscaTodosUsuarioEventoSucess(data){
 
+    if(data != false){
+      this.listaTodosEventos = data;
+      for(let usuarioEvento of data){
+        let selectedDate = moment(usuarioEvento.evento.dtInicio, moment.ISO_8601);
+        usuarioEvento.evento.momento = selectedDate;
+
+        if(usuarioEvento.status == "A" && moment(selectedDate.format(this.modelFormat || 'YYYY-MM-DD')).isSame(this.viewValue+"")){
+          this.listaEventos.push(usuarioEvento);
+        }
+        if(usuarioEvento.evento.usuario.id == this.idUsuario){
+          this.meusEventos.push(usuarioEvento);
+        }
+        if(usuarioEvento.status == "P"){
+          this.convitesEvento.push(usuarioEvento);
+        }
+      }
+    }else{
+      this.listaEventos =[];
+      this.meusEventos =[];
+      this.convitesEvento =[];
+    }
   }
 
   cadastrarEvento() {
     this.nav.push(CadastrarEventoPage, {idUsuarioLogado: this.idUsuario});
   }
 
-  buscaEventoPorUsuarioSucess(data){
-    this.meusEventos = data;
-    if(this.meusEventos != false){
-        for(let evento of this.meusEventos){
-          let selectedDate = moment(evento.dtInicio, moment.ISO_8601);
-          evento.momento = selectedDate;
-        }
-    }
-  }
-
-  buscaEventosPendentesSucess(data){
-    if(data != false){
-    this.convitesEvento = data;
-        for(let usrEvento of this.convitesEvento){
-          let selectedDate = moment(usrEvento.evento.dtInicio, moment.ISO_8601);
-          usrEvento.evento.momento = selectedDate;
-        }
-    }
-  }
-
-  abrirEvento(evento){
-    this.nav.push(EventoPage, {idUsuarioLogado: this.idUsuario, eventoSel : evento});
+  abrirEvento(item){
+    this.nav.push(EventoPage, {idUsuarioLogado: this.idUsuario, usuarioEvento : item});
   }
 
   doRefresh(refresher) {
 
     var dataEnv = moment().format(this.modelFormat || 'DD-MM-YYYY');
 
-    this.service.buscaEventoUsuarioPorUsuarioData(this.idUsuarioLogado, dataEnv)
-    .subscribe(
-      data => this.buscaEventoSucess(data),
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
-
-    this.service.pesquisaEventoPorUsuario(this.idUsuarioLogado)
-    .subscribe(
-      data => this.buscaEventoPorUsuarioSucess(data),
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
-
-    this.service.buscaUsuarioEventoPendente(this.idUsuarioLogado)
-    .subscribe(
-      data => this.buscaEventosPendentesSucess(data),
-      err => this.logError(err),
-      () => this.loginComplete()
-    );
+    this.init();
 
     setTimeout(() => {
       console.log('Async operation has ended');

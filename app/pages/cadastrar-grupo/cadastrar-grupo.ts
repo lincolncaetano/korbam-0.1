@@ -49,7 +49,7 @@ export class CadastrarGrupoPage {
       });
 
       loading.present();
-      console.log(this.idUsuarioLogado);
+      
       this.grupoCad.usuario = {id: this.idUsuarioLogado};
 
       setTimeout(() => {
