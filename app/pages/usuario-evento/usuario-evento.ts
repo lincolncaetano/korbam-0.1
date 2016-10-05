@@ -160,14 +160,19 @@ export class UsuarioEventoPage {
     let dateAlarme1 = this.configuraAlerta(this.eventoCad.lembrete1);
     let dateAlarme2 = this.configuraAlerta(this.eventoCad.lembrete2);
 
+    let msgAlerta1 = this.configuraMsgAlerta(this.eventoCad.lembrete1);
+    let msgAlerta2 = this.configuraMsgAlerta(this.eventoCad.lembrete2);
 
     var id0 = parseInt(this.eventoResp.id+"0");
     var id1 = parseInt(this.eventoResp.id+"1");
     var id2 = parseInt(this.eventoResp.id+"2");
 
+    alert(dateAlarme1.toDate());
+    alert(dateAlarme2.toDate());
+
     LocalNotifications.schedule({
        id: id0,
-       text: 'Delayed Notification',
+       text: "O evento" + this.eventoCad.titulo + ' acabou de começar',
        at: dateAlarme0.toDate(),
        led: 'FF0000',
        sound: 'file://beep.caf'
@@ -175,7 +180,7 @@ export class UsuarioEventoPage {
 
     LocalNotifications.schedule({
        id: id1,
-       text: 'Delayed Notification',
+       text: msgAlerta1,
        at: dateAlarme1.toDate(),
        led: 'FF0000',
        sound: 'file://beep.caf'
@@ -183,7 +188,7 @@ export class UsuarioEventoPage {
 
     LocalNotifications.schedule({
        id: id2,
-       text: 'Delayed Notification',
+       text: msgAlerta1,
        at: dateAlarme2.toDate(),
        led: 'FF0000',
        sound: 'file://beep.caf'
@@ -216,10 +221,34 @@ export class UsuarioEventoPage {
 
   }
 
+  configuraMsgAlerta(codLembrete){
+
+    if(codLembrete == 1){
+      return "Faltam 30 minutos para o evento " + this.eventoCad.titulo;
+    }else if(codLembrete == 2){
+      return "Falta 1 hora para o evento " + this.eventoCad.titulo;
+    }else if(codLembrete == 3){
+      return "Faltam 2 horas para o evento " + this.eventoCad.titulo;
+    }else if(codLembrete == 4){
+      return "Faltam 4 horas para o evento " + this.eventoCad.titulo;
+    }else if(codLembrete == 5){
+      return "Faltam 8 horas para o evento " + this.eventoCad.titulo;
+    }else if(codLembrete == 6){
+      return "Faltam 12 horas para o evento " + this.eventoCad.titulo;
+    }else if(codLembrete == 7){
+      return "Falta 1 dia para o evento " + this.eventoCad.titulo;
+    }else if(codLembrete == 8){
+      return "Faltam 2 dias para o evento " + this.eventoCad.titulo;
+    }
+
+  }
+
   isDisabled(item){
-    for (var user of this.eventoCad.listaUsuario) {
-      if(item.id == user.id){
-        return true;
+    if(this.eventoCad.listaUsuario != null){
+      for (var user of this.eventoCad.listaUsuario) {
+        if(item.id == user.id){
+          return true;
+        }
       }
     }
   }

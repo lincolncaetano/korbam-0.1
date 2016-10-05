@@ -1,14 +1,15 @@
+<ion-header>
+  <ion-navbar dark>
+    <ion-title>{{usuario.username}}</ion-title>
+    <ion-buttons end>
+      <button (click)="editar()" >
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
 <ion-content class="perfil">
-
-  <a href="#" (click)="logout()" style="position: absolute; z-index: inherit; right: 0px; font-size: x-large;
-    color: white;">
-      <ion-icon name="log-out"></ion-icon>
-  </a>
-
-  <a href="#" (click)="editar()" style="position: absolute; z-index: inherit; right: 30px; font-size: x-large;
-    color: white;">
-      <ion-icon name="settings"></ion-icon>
-  </a>
 
     <div id="capa"><img src="img/capa.jpg"></div>
 

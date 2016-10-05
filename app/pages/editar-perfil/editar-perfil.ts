@@ -1,8 +1,10 @@
 import {Page, NavController, ActionSheetController} from 'ionic-angular';
+import { App } from 'ionic-angular';
 import {Storage, LocalStorage} from 'ionic-angular';
 import {Camera} from 'ionic-native';
 import * as moment from 'moment';
 
+import {HomePage} from '../home/home';
 import {UsuarioService} from '../../services/UsuarioService';
 
 @Page({
@@ -13,21 +15,22 @@ export class EditarPerfilPage {
 
   private usuarioCad: any;
   private idUsuarioLogado: any;
+  private token: any;
   private retorno: any;
   private usuario: any;
   public local: Storage = new Storage(LocalStorage);
   public namePage : any = "EditarPerfilPage";
+  public atualizarPerfil = false;
+  public fotoAux :any;
 
 
-
-  constructor(public nav: NavController, public actionSheetCtrl: ActionSheetController, public usuarioService: UsuarioService) {
+  constructor(public nav: NavController, public actionSheetCtrl: ActionSheetController, public usuarioService: UsuarioService, private app: App) {
     this.nav = nav;
     this.actionSheetCtrl = actionSheetCtrl;
     this.usuarioCad = {};
 
     this.local.get('idUsuario').then(profile => {
       this.idUsuarioLogado = JSON.parse(profile);
-
       this.usuarioService.pesquisaUsuarioPorId(this.idUsuarioLogado)
       .subscribe(
         data => this.retorno = data,
@@ -35,6 +38,12 @@ export class EditarPerfilPage {
         () => this.pesquisaComplete()
       );
 
+    }).catch(error => {
+      console.log(error);
+    });
+
+    this.local.get('tokenDevice').then(token => {
+      this.token = token;
     }).catch(error => {
       console.log(error);
     });
@@ -65,7 +74,8 @@ export class EditarPerfilPage {
   }
 
   completeCad(){
-     this.nav.pop();
+    this.atualizarPerfil = true;
+    this.nav.pop();
   }
 
 
@@ -135,6 +145,24 @@ export class EditarPerfilPage {
     }, (err) => {
       // Handle error
     });
+  }
+
+  logout(){
+    this.usuarioService.detelaPorToken(this.token)
+    .subscribe(
+      data => this.retorno = data,
+      err => this.logError(err),
+      () => this.logoutComplete()
+    );
+
+  }
+
+  logoutComplete(){
+    if(this.retorno == true){
+      this.local.clear();
+      const root = this.app.getRootNav();
+      root.popToRoot();
+    }
   }
 
 }

@@ -24,26 +24,34 @@
   </div>
 
   <div [ngSwitch]="segGrupo">
-    <ion-list *ngSwitchCase="'eventos'">
+    <div *ngSwitchCase="'eventos'">
 
-<!--      <div class="modeloItemAgenda1">
+      <center *ngIf="isAdmin">
+        <button class="botaoCriarGrupo" style="margin-top: 20px;" (click)="cadastrarEvento()" small block><ion-icon name="person-add"></ion-icon>Criar Evento</button>
+      </center>
 
-        <div class="modeloItemAgenda-data">
-          <h3>12</h3>
-          <h4>quinta</h4>
+      <div *ngFor="let item of eventosGrupo">
+
+        <div class="modeloItemAgenda1" (click)="abrirEvento(item)">
+
+          <div class="modeloItemAgenda-data">
+            <h3>{{item.momento.date()}}</h3>
+            <h4>{{item.momento.format('dddd')}}</h4>
+          </div>
+
+          <div class="modeloItemAgenda-nomeEvento">
+            <p>{{item.titulo}}</p>
+          </div>
+
+          <div class="modeloItemAgenda-horario">
+            <p>{{item.hrInicial}} às {{item.hrFinal}}</p>
+          </div>
+
         </div>
 
-        <div class="modeloItemAgenda-nomeEvento">
-          <p>Titulo</p>
-        </div>
+      </div>
 
-        <div class="modeloItemAgenda-horario">
-          <p>14:00 às 15:30</p>
-        </div>
-
-      </div> -->
-
-    </ion-list>
+    </div>
 
     <div *ngSwitchCase="'participantes'">
 

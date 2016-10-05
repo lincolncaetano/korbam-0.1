@@ -1,4 +1,5 @@
 import {NavController, NavParams} from 'ionic-angular';
+import {Storage, LocalStorage} from 'ionic-angular';
 import {Page, ViewController, Platform} from 'ionic-angular';
 import {InicialPage} from '../inicial/inicial';
 import {FeedPage} from '../feed/feed';
@@ -54,20 +55,28 @@ export class TabsPage {
 	retorno : any;
 	service : NotificaoService;
 
+	public local: Storage = new Storage(LocalStorage);
 	public nNotif = 0;
 
 	constructor(platform: Platform, navParams :NavParams, notificaoService: NotificaoService) {
 
 		this.isAndroid = platform.is('android');
-		this.idUsuarioLogado = navParams.get("idUsuarioLogado");
+		//this.idUsuarioLogado = navParams.get("idUsuarioLogado");
 		this.service = notificaoService;
 
-		this.service.buscaNotificacoes(this.idUsuarioLogado)
-		.subscribe(
-			data => this.retorno = data,
-			err => this.logError(err),
-			() => this.buscaNotifComplete()
-		);
+		this.local.get('idUsuario').then(profile => {
+			this.idUsuarioLogado = JSON.parse(profile);
+			this.service.buscaNotificacoes(this.idUsuarioLogado)
+			.subscribe(
+				data => this.retorno = data,
+				err => this.logError(err),
+				() => this.buscaNotifComplete()
+			);
+		}).catch(error => {
+			console.log(error);
+		});
+
+
 
 	}
 

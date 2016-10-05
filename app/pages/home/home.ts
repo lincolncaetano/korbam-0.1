@@ -37,15 +37,7 @@ export class HomePage {
     this.login = {};
     this.submitted = false;
 
-    this.local.get('idUsuario').then(profile => {
-      this.user = JSON.parse(profile);
-      if(profile != null){
 
-        this.nav.push(TabsPage, {idUsuarioLogado: profile});
-      }
-    }).catch(error => {
-      console.log(error);
-    });
 
   }
 
@@ -85,7 +77,8 @@ export class HomePage {
 
       let push = Push.init({
           android: {
-              senderID: "325117634477"
+              senderID: "325117634477",
+              icon: "icon",
           },
           ios: {
               alert: "true",
@@ -96,28 +89,30 @@ export class HomePage {
       });
 
       push.on('registration', (data) => {
-          console.log("device token ->"+data.registrationId);
-          var platf;
-          if(this.platform.is('ios')){
-            platf = "I";
-          }else{
-            platf = "A";
-          }
 
-          var usuarioDevice = {
-            usuario:{
-              id: this.usrRe.id
-            },
-            tokenDevice: data.registrationId,
-            tipoDevice: platf,
-          };
+        var platf;
+        if(this.platform.is('ios')){
+          platf = "I";
+        }else{
+          platf = "A";
+        }
 
-          this.service.cadastrarTokenDevice(usuarioDevice)
-          .subscribe(
-            data => this.cadUserDevSucess(data),
-            err => this.logError(err),
-            () => this.cadUserDevComplete()
-          );
+        var usuarioDevice = {
+          usuario:{
+            id: this.usrRe.id
+          },
+          tokenDevice: data.registrationId,
+          tipoDevice: platf
+        };
+
+        this.service.cadastrarTokenDevice(usuarioDevice)
+        .subscribe(
+          data => this.cadUserDevSucess(data),
+          err => this.logError(err),
+          () => this.cadUserDevComplete()
+        );
+
+
       });
 
       push.on('notification', (data) => {
@@ -133,7 +128,10 @@ export class HomePage {
           console.log(e.message);
       });
 
+
       this.nav.push(TabsPage,{idUsuarioLogado: this.usrRe.id});
+
+
     }else {
       alert("USUARIO OU SENHA INVALIDO");
     }
@@ -143,7 +141,7 @@ export class HomePage {
   }
 
   cadUserDevSucess(data){
-      console.log(data);
+      this.local.set('tokenDevice', data.tokenDevice);
   }
 
   cadUserDevComplete(){

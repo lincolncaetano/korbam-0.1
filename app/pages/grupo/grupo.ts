@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import {Storage, LocalStorage} from 'ionic-angular';
 
+import * as moment from 'moment';
+
 import {CadastrarGrupoPage} from '../cadastrar-grupo/cadastrar-grupo';
+import {CadastrarEventoPage} from '../cadastrar-evento/cadastrar-evento';
+import {EventoPage} from '../evento/evento';
 
 import {GrupoService} from '../../services/GrupoService';
 
@@ -31,6 +35,9 @@ export class GrupoPage {
 
   private listaUsuarios: any;
   private isAdmin: any;
+  private eventosGrupo: any;
+
+  private usuarioEventoRe: any;
 
   constructor(nav, navParams, grupoService) {
 
@@ -63,6 +70,16 @@ export class GrupoPage {
       this.nome = this.grupoRe.nome;
       this.listaUsuarios = this.grupoRe.listaUsuario;
       this.adminGrupo = this.grupoRe.usuario;
+      if(this.grupoRe.listaEvento != null){
+        this.eventosGrupo = this.grupoRe.listaEvento;
+        for(let evento of this.eventosGrupo){
+          let selectedDate = moment(evento.dtInicio, moment.ISO_8601);
+          evento.momento = selectedDate;
+        }
+      }else{
+        this.eventosGrupo = {};
+      }
+
       if(this.adminGrupo.id == this.idUsuarioLogado){
         this.isAdmin = true;
       }
@@ -77,6 +94,29 @@ export class GrupoPage {
     this.nav.push(CadastrarGrupoPage, {idUsuarioLogado: this.idUsuarioLogado, grupoEdit : this.grupoRe});
   }
 
+  cadastrarEvento() {
+    this.nav.push(CadastrarEventoPage, {idUsuarioLogado: this.idUsuarioLogado, grupo : this.grupoRe});
+  }
+
+  abrirEvento(item){
+
+    this.service.pesquisaUsuarioEvento(this.idUsuarioLogado, item.id)
+    .subscribe(
+      data => this.usuarioEventoRe = data,
+      err => this.logError(err),
+      () => this.buscaUsuarioEventoComplete()
+    );
+  }
+
+  buscaUsuarioEventoComplete(){
+    if(this.usuarioEventoRe != false && this.usuarioEventoRe != true){
+      this.nav.push(EventoPage, {idUsuarioLogado: this.idUsuarioLogado, usuarioEvento : this.usuarioEventoRe});
+    }else if(this.usuarioEventoRe == true){
+      var user ={
+
+      }
+    }
+  }
 
 
 }

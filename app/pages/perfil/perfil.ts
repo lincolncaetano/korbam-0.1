@@ -49,7 +49,7 @@ export class PerfilPage {
   }
 
   ionViewDidEnter() {
-    if(this.nav.last().instance.namePage == "EditarPerfilPage"){
+    if(this.nav.last().instance.atualizarPerfil){
       this.usuario = {};
       this.init();
     }

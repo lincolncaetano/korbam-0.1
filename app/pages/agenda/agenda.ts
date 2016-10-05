@@ -73,6 +73,9 @@ export class AgendaPage {
     if(this.nav.last().instance.namePage == "UsuarioEventoPage"){
       this.init();
     }
+    if(this.nav.last().instance.atualizarAgenda){
+      this.init();
+    }
   }
 
   consultaEvento(data){

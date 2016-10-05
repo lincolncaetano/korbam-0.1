@@ -7,6 +7,11 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
+        },
         "cordova-plugin-console": {
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         },
@@ -22,9 +27,6 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         },
-        "de.appplant.cordova.plugin.local-notification": {
-            "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
-        },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         },
@@ -32,17 +34,15 @@
             "SENDER_ID": "42908905109",
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         },
-        "cordova-plugin-camera": {
-            "CAMERA_USAGE_DESCRIPTION": " ",
-            "PHOTOLIBRARY_USAGE_DESCRIPTION": " ",
+        "de.appplant.cordova.plugin.local-notification": {
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         }
     },
     "dependent_plugins": {
-        "cordova-plugin-app-event": {
+        "cordova-plugin-compat": {
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         },
-        "cordova-plugin-compat": {
+        "cordova-plugin-app-event": {
             "PACKAGE_NAME": "com.lincolncaetano.ionic2push"
         }
     }

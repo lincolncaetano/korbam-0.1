@@ -18,6 +18,7 @@ export class FeedPage {
   private service: UsuarioService;
   public searchQuery: String;
   public items: any;
+  public retorno: any;
   private idUsuarioLogado : any;
 
   constructor(nav,service,navParams) {
@@ -28,15 +29,31 @@ export class FeedPage {
     this.idUsuarioLogado = navParams.data;
   }
 
-  onKey(){
-    var q = this.searchQuery;
-    if(q.trim() == '') {
+  onKey(event){
+    var q = event.target.value;
+    if(q != ''){
+      this.service.pesquisaUsuario(q)
+      .subscribe(
+        data => this.retorno = data,
+        err => this.logError(err),
+        () => this.pesquisaComplete()
+      );
+    }else{
       this.items = [];
-      return this.items;
     }
 
-    this.service.pesquisaUsuario(q)
-    .subscribe(data => this.items = data);
+  }
+
+  pesquisaComplete(){
+    if(this.retorno != null){
+      this.items = this.retorno;
+    }else{
+      this.items = [];
+    }
+  }
+
+  logError(err){
+    console.log(err)
   }
 
   goUsuario(idUsuario){

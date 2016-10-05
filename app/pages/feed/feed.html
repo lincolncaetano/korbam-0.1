@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-searchbar [(ngModel)]="searchQuery" (input)="onKey($event)"></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchQuery" (keyup)="onKey($event)"></ion-searchbar>
   </ion-navbar>
 </ion-header>
 
