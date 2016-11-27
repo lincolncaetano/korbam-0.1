@@ -16,23 +16,65 @@
 @import '../pages/evento/evento';
 @import '../pages/notificacoes/notificacoes';
 @import '../pages/lista-grupos/lista-grupos';
-
+@import '../pages/tabs/tabs';
 
 ion-label[stacked],
 ion-label[floating] {
   flex-basis: auto;
 }
 
+// tabs
+
 ion-nav.has-views, ion-tab.has-views {
     background-color: #fff !important;
 }
 
-.tab-button-icon {
-    color: #081522;
+.tab-button-icon .ion-ios-paper, .tab-button-icon .ion-ios-person-add, .tab-button-icon .ion-ios-chatbubbles, .tab-button-icon .ion-ios-globe, .tab-button-icon .ion-ios-list {
+    color: #304995 !important;
 }
 
 ion-tabs ion-navbar-section {
     display: none;
+}
+
+ion-tabbar {
+  background: #fff !important;
+}
+
+// -tabs
+
+
+// segment
+
+.segment-button {
+    padding: 9px 6px;
+    width: 0;
+    height: 2.9rem;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: rgba(0, 0, 0, 0.01);
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1rem;
+    color: #000;
+}
+
+.segment-button.activated, .segment-button.segment-activated {
+    border-color: #636e8a !important;
+}
+
+.agendaToolbar {
+    min-height: 3.4rem;
+}
+
+.agendaToolbar .toolbar-background {
+    margin-top: -2px !important;
+}
+
+// -segment
+
+.has-refresher > scroll-content {
+    border: none;
 }
 
 .mostrarNav {

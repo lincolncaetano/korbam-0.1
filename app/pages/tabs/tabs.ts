@@ -33,23 +33,32 @@ class TabIconPage {
 
 @Page({
 	template:
-	'<ion-tabs tabbarPlacement="bottom" class="tabs-icon" selectedIndex="2">' +
-  //  '<ion-tab tabIcon="home" [root]="tabOne" [rootParams]="idUsuarioLogado"></ion-tab>' +
-    '<ion-tab tabIcon="search" [root]="tabTwo" [rootParams]="idUsuarioLogado" ></ion-tab>' +
-		'<ion-tab tabIcon="notifications" (ionSelect)="chat()" [tabBadge]="nNotif" tabBadgeStyle="danger" [root]="tabFive" [rootParams]="idUsuarioLogado"></ion-tab>' +
-		'<ion-tab tabIcon="calendar" [root]="tabFour" [rootParams]="idUsuarioLogado"></ion-tab>' +
-		'<ion-tab tabIcon="people" [root]="tabSix" [rootParams]="idUsuarioLogado"></ion-tab>' +
-		'<ion-tab tabIcon="person" [root]="tabThree" [rootParams]="idUsuarioLogado"></ion-tab>' +
+	'<ion-tabs tabbarPlacement="bottom" class="tabs-icon" selectedIndex="0">' +
+    //'<ion-tab tabIcon="home" [root]="tabOne" [rootParams]="idUsuarioLogado"></ion-tab>' +
+    //'<ion-tab tabIcon="search" [root]="tabTwo" [rootParams]="idUsuarioLogado" tabTitle="Water"></ion-tab>' +
+		//'<ion-tab tabIcon="notifications" (ionSelect)="chat()" [tabBadge]="nNotif" tabBadgeStyle="danger" [root]="tabFive" [rootParams]="idUsuarioLogado" tabTitle="Water"></ion-tab>' +
+		//'<ion-tab tabIcon="calendar" [root]="tabFour" [rootParams]="idUsuarioLogado" tabTitle="Water"></ion-tab>' +
+		//'<ion-tab tabIcon="people" [root]="tabSix" [rootParams]="idUsuarioLogado" tabTitle="Water"></ion-tab>' +
+		//'<ion-tab tabIcon="person" [root]="tabThree" [rootParams]="idUsuarioLogado" tabTitle="Water"></ion-tab>' +
+	  '<ion-tab tabIcon="paper" [root]="tabSeven" [rootParams]="idUsuarioLogado" tabTitle="News Feed"></ion-tab>' +
+		'<ion-tab tabIcon="person-add" [root]="tabEight" [rootParams]="idUsuarioLogado" tabTitle="Requests"></ion-tab>' +
+		'<ion-tab tabIcon="chatbubbles" [root]="tabNine" [rootParams]="idUsuarioLogado" tabTitle="Messages"></ion-tab>' +
+		'<ion-tab tabIcon="globe" (ionSelect)="chat()" [tabBadge]="nNotif" tabBadgeStyle="danger" [root]="tabFive" [rootParams]="idUsuarioLogado" tabTitle="Notifications"></ion-tab>' +
+		'<ion-tab tabIcon="list" [root]="tabNine" [rootParams]="idUsuarioLogado" tabTitle="More"></ion-tab>' +
 	'</ion-tabs>',
 	providers: [NotificaoService]
 })
 export class TabsPage {
+
 	tabOne = InicialPage;
 	tabTwo = FeedPage;
 	tabThree = PerfilPage;
 	tabFour = AgendaPage;
 	tabFive = NotificacoesPage;
 	tabSix = ListaGruposPage;
+	tabSeven = AgendaPage;
+	tabEight = AgendaPage;
+	tabNine = AgendaPage;
 	isAndroid: boolean = false;
 	idUsuarioLogado : any;
 	retorno : any;

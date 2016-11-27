@@ -5,8 +5,8 @@
     </ion-title>
   </ion-navbar>
 
-  <ion-toolbar [attr.primary]="isAndroid ? '' : null" no-border-top>
-    <ion-segment [(ngModel)]="calendario" [attr.light]="isAndroid ? '' : null">
+  <ion-toolbar class="semPadding agendaToolbar" mode="ios" [attr.primary]="isAndroid ? '' : null" no-border-top>
+    <ion-segment mode="ios" [(ngModel)]="calendario" [attr.light]="isAndroid ? '' : null">
       <ion-segment-button value="agenda">
         Agenda
       </ion-segment-button>
@@ -20,27 +20,137 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="bg-branco">
+<ion-content id="paginaAgenda" class="bg-branco">
 
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
+  <div class="overlay is-hidden" id="overlay1">
+  	<div class="modal-content">
+  		<span class="botao-close" (click)="closeModal('overlay1');"></span>
+
+      <ion-list>
+
+        <ion-list-header class="tituloModal">
+          CHECK-LIST
+        </ion-list-header>
+
+        <div class="pesquisaChecklist">
+          <input type="text" class="pesquisaInputChecklist" name="pesquisaInputChecklist" id="pesquisaInputChecklist" autofocus>
+        </div>
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>ABACAXI</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right checked="true"></ion-checkbox>
+
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>DOCE DE LEITE</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>PÃO FATIADO</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>ARROZ</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+      </ion-list>
+
+      <a href="#">
+          <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
+      </a>
+
+  	</div>
+  </div>
+  <div class="overlay is-hidden" id="overlay2">
+    <div class="modal-content">
+      <span class="botao-close" (click)="closeModal('overlay2');"></span>
+
+      <ion-list>
+
+        <ion-list-header class="tituloModal">
+          ADICIONAR PESSOAS
+        </ion-list-header>
+
+        <div class="pesquisaChecklist">
+          <input type="text" class="pesquisaInputAddPessoas" name="pesquisaInputAddPessoas" id="pesquisaInputAddPessoas" autofocus>
+          <ion-icon light name="search" class="botaoPesquisaModal"></ion-icon>
+        </div>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">John Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">Jane Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">John Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">Jane Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+      </ion-list>
+
+      <a href="#">
+          <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="overlay is-hidden" id="overlay3">
+    <div class="modal-content">
+      <span class="botao-close" (click)="closeModal('overlay2');"></span>
+
+      <ion-list>
+
+        <ion-list-header class="tituloModal">
+          HORÁRIO
+        </ion-list-header>
+        <ion-item>
+          <ion-datetime class="horarioModal" displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
+  </div>
 
   <div [ngSwitch]="calendario">
     <div *ngSwitchCase="'agenda'">
 
-        <ion-grid style="text-align: center;">
-          <ion-row style="background-color: #5d8db1; font-size: 20px;">
-            <ion-col><i class="fa fa-backward prev-year-btn" tappable (click)="prevYear()"> << </i></ion-col>
-            <ion-col><i class="fa fa-angle-left prev-month-btn" tappable (click)="prevMonth()"> < </i></ion-col>
-
-            <ion-col width-50 style="text-align: center;">{{ dateValue }}</ion-col>
-
-            <ion-col><i class="fa fa-angle-right next-month-btn" tappable (click)="nextMonth()"> > </i></ion-col>
-            <ion-col ><i class="fa fa-forward next-year-btn" tappable (click)="nextYear()"> >> </i></ion-col>
+        <ion-grid class="semPadding" style="text-align: center;">
+          <ion-row class="headerCalendario">
+            <div class="dataEsquerda">
+              <ion-col width-100>{{ anoAtual }}</ion-col>
+            </div>
+            <div class="dataDireita">
+              <ion-col width-100>quarta</ion-col>
+              <ion-col width-100>2016</ion-col>
+            </div>
           </ion-row>
-          <ion-row style="background-color: #5d8db1;">
+          <ion-row>
             <ion-col width-14 class="day-name" *ngFor="let dn of dayNames" >
               {{ dn }}
             </ion-col>
@@ -52,7 +162,7 @@
           </ion-row>
 
         </ion-grid>
-
+<!--
         <ion-grid>
           <ion-row>
             <ion-col>
@@ -62,7 +172,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-
+-->
         <div style="padding-left: 5px; padding-right: 5px;">
 
             <div *ngFor="let item of listaEventos">
@@ -85,7 +195,69 @@
               </div>
 
             </div>
+
       </div>
+
+              <div class="ferramentasAgenda">
+
+                <div class="agendaAdd">
+                  <input type="text" class="nomeEventoAgenda" name="nomeEventoAgenda" id="nomeEventoAgenda">
+                  <a href="#">
+                      <ion-icon light name="md-add" class="botaoAddEventoAgenda" (click)="cadastrarEvento()"></ion-icon>
+                  </a>
+                </div>
+
+                <div class="agendarFechado">
+
+                  <input type="text" class="agendaEventoNome" name="agendaEventoNome" id="agendaEventoNome_1"
+                  (click)="mudaTamanhoInput('agendaEventoNome_1', 62.2); mudaDisplayDiv('botoesFerramentasFechados_1')"
+                  value="apn com fulano"
+                  />
+
+                  <div class="botoesFerramentas" id="botoesFerramentasFechados_1" style="display: none;">
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay3');">
+                        <ion-icon light name="md-alarm"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda">
+                        <ion-icon light name="ios-microphone"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay1');">
+                        <ion-icon light name="md-list"></ion-icon>
+                    </a>
+
+                  </div>
+
+                </div>
+
+                <div class="agendarAberto">
+
+                  <input type="text" class="agendaEventoNome" name="agendaEventoNome" id="agendaEventoNome_2"
+                  (click)="mudaTamanhoInput('agendaEventoNome_2', 62.2); mudaDisplayDiv('botoesFerramentasFechados_2')"
+                  value="apn com fulano"
+                  />
+
+                  <div class="botoesFerramentas" id="botoesFerramentasFechados_2" style="display: none;">
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay3');">
+                        <ion-icon light name="md-alarm"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda">
+                        <ion-icon light name="ios-microphone"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay2');">
+                        <ion-icon light name="md-list"></ion-icon>
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </div>
 
     </div>
 
@@ -139,6 +311,8 @@
 
     </div>
 
+
+
   </div>
 <!--
   <ion-list style="margin: 10px 0 32px 0;">
@@ -170,9 +344,6 @@
   </div>
 
   -->
-
-
-
 
 <!--
     <div class="modeloItemAgenda2">

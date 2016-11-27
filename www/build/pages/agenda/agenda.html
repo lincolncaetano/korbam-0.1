@@ -1,0 +1,389 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <img src="img/logo.png" width="55%" class="img-logo"/>
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar class="semPadding agendaToolbar" mode="ios" [attr.primary]="isAndroid ? '' : null" no-border-top>
+    <ion-segment mode="ios" [(ngModel)]="calendario" [attr.light]="isAndroid ? '' : null">
+      <ion-segment-button value="agenda">
+        Agenda
+      </ion-segment-button>
+      <ion-segment-button value="meusEventos">
+        Meus Eventos
+      </ion-segment-button>
+      <ion-segment-button value="convites">
+        Convites
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="paginaAgenda" class="bg-branco">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="overlay is-hidden" id="overlay1">
+  	<div class="modal-content">
+  		<span class="botao-close" (click)="closeModal('overlay1');"></span>
+
+      <ion-list>
+
+        <ion-list-header class="tituloModal">
+          CHECK-LIST
+        </ion-list-header>
+
+        <div class="pesquisaChecklist">
+          <input type="text" class="pesquisaInputChecklist" name="pesquisaInputChecklist" id="pesquisaInputChecklist" autofocus>
+        </div>
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>ABACAXI</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right checked="true"></ion-checkbox>
+
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>DOCE DE LEITE</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>PÃO FATIADO</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+              <ion-item>
+            		<img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+                <h3>ARROZ</h3>
+              </ion-item>
+              <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+      </ion-list>
+
+      <a href="#">
+          <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
+      </a>
+
+  	</div>
+  </div>
+  <div class="overlay is-hidden" id="overlay2">
+    <div class="modal-content">
+      <span class="botao-close" (click)="closeModal('overlay2');"></span>
+
+      <ion-list>
+
+        <ion-list-header class="tituloModal">
+          ADICIONAR PESSOAS
+        </ion-list-header>
+
+        <div class="pesquisaChecklist">
+          <input type="text" class="pesquisaInputAddPessoas" name="pesquisaInputAddPessoas" id="pesquisaInputAddPessoas" autofocus>
+          <ion-icon light name="search" class="botaoPesquisaModal"></ion-icon>
+        </div>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">John Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">Jane Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">John Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+        <ion-item>
+          <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+          <h3 class="nomePesquisaModal">Jane Doe</h3>
+          <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+        </ion-item>
+
+      </ion-list>
+
+      <a href="#">
+          <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="overlay is-hidden" id="overlay3">
+    <div class="modal-content">
+      <span class="botao-close" (click)="closeModal('overlay2');"></span>
+
+      <ion-list>
+
+        <ion-list-header class="tituloModal">
+          HORÁRIO
+        </ion-list-header>
+        <ion-item>
+          <ion-datetime class="horarioModal" displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+        </ion-item>
+      </ion-list>
+
+    </div>
+
+  </div>
+
+  <div [ngSwitch]="calendario">
+    <div *ngSwitchCase="'agenda'">
+
+        <ion-grid class="semPadding" style="text-align: center;">
+          <ion-row class="headerCalendario">
+            <div class="dataEsquerda">
+              <ion-col width-100>{{ anoAtual }}</ion-col>
+            </div>
+            <div class="dataDireita">
+              <ion-col width-100>quarta</ion-col>
+              <ion-col width-100>2016</ion-col>
+            </div>
+          </ion-row>
+          <ion-row>
+            <ion-col width-14 class="day-name" *ngFor="let dn of dayNames" >
+              {{ dn }}
+            </ion-col>
+          </ion-row>
+          <ion-row *ngFor="let week of weeks" class="date">
+            <ion-col width-14 *ngFor=" let d of week; let i = index;" class="day" [ngClass]="{'disabled': !d.enabled, 'ocupado': isOcupado(d), 'selected': isSelected(d)}" tappable (click)="selectDate($event, d)">
+            {{ d.day }}
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+<!--
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <button clear (click)="cadastrarEvento()">
+                <ion-icon style="color: #081522; font-size: 40px; padding-left: 0px;" name="add-circle"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+-->
+        <div style="padding-left: 5px; padding-right: 5px;">
+
+            <div *ngFor="let item of listaEventos">
+
+              <div class="modeloItemAgenda1" (click)="abrirEvento(item)">
+
+                <div class="modeloItemAgenda-data">
+                  <h3>{{item.evento.momento.date()}}</h3>
+                  <h4>{{item.evento.momento.format('dddd')}}</h4>
+                </div>
+
+                <div class="modeloItemAgenda-nomeEvento">
+                  <p>{{item.evento.titulo}}</p>
+                </div>
+
+                <div class="modeloItemAgenda-horario">
+                  <p>{{item.evento.hrInicial}} às {{item.evento.hrFinal}}</p>
+                </div>
+
+              </div>
+
+            </div>
+
+      </div>
+
+              <div class="ferramentasAgenda">
+
+                <div class="agendaAdd">
+                  <input type="text" class="nomeEventoAgenda" name="nomeEventoAgenda" id="nomeEventoAgenda">
+                  <a href="#">
+                      <ion-icon light name="md-add" class="botaoAddEventoAgenda" (click)="cadastrarEvento()"></ion-icon>
+                  </a>
+                </div>
+
+                <div class="agendarFechado">
+
+                  <input type="text" class="agendaEventoNome" name="agendaEventoNome" id="agendaEventoNome_1"
+                  (click)="mudaTamanhoInput('agendaEventoNome_1', 62.2); mudaDisplayDiv('botoesFerramentasFechados_1')"
+                  value="apn com fulano"
+                  />
+
+                  <div class="botoesFerramentas" id="botoesFerramentasFechados_1" style="display: none;">
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay3');">
+                        <ion-icon light name="md-alarm"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda">
+                        <ion-icon light name="ios-microphone"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay1');">
+                        <ion-icon light name="md-list"></ion-icon>
+                    </a>
+
+                  </div>
+
+                </div>
+
+                <div class="agendarAberto">
+
+                  <input type="text" class="agendaEventoNome" name="agendaEventoNome" id="agendaEventoNome_2"
+                  (click)="mudaTamanhoInput('agendaEventoNome_2', 62.2); mudaDisplayDiv('botoesFerramentasFechados_2')"
+                  value="apn com fulano"
+                  />
+
+                  <div class="botoesFerramentas" id="botoesFerramentasFechados_2" style="display: none;">
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay3');">
+                        <ion-icon light name="md-alarm"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda">
+                        <ion-icon light name="ios-microphone"></ion-icon>
+                    </a>
+
+                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay2');">
+                        <ion-icon light name="md-list"></ion-icon>
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+    </div>
+
+    <div *ngSwitchCase="'meusEventos'">
+
+      <div *ngFor="let item of meusEventos">
+
+        <div class="modeloItemAgenda1" (click)="abrirEvento(item)">
+
+          <div class="modeloItemAgenda-data">
+            <h3>{{item.evento.momento.date()}}</h3>
+            <h4>{{item.evento.momento.format('dddd')}}</h4>
+          </div>
+
+          <div class="modeloItemAgenda-nomeEvento">
+            <p>{{item.evento.titulo}}</p>
+          </div>
+
+          <div class="modeloItemAgenda-horario">
+            <p>{{item.evento.hrInicial}} às {{item.evento.hrFinal}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div *ngSwitchCase="'convites'">
+
+      <div *ngFor="let item of convitesEvento">
+
+        <div class="modeloItemAgenda1" (click)="abrirEvento(item)">
+
+          <div class="modeloItemAgenda-data">
+            <h3>{{item.evento.momento.date()}}</h3>
+            <h4>{{item.evento.momento.format('dddd')}}</h4>
+          </div>
+
+          <div class="modeloItemAgenda-nomeEvento">
+            <p>{{item.evento.titulo}}</p>
+          </div>
+
+          <div class="modeloItemAgenda-horario">
+            <p>{{item.evento.hrInicial}} às {{item.evento.hrFinal}}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+  </div>
+<!--
+  <ion-list style="margin: 10px 0 32px 0;">
+    <ion-item *ngFor="let item of listaEventos">
+      <ion-label>{{ item.titulo }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item class="meusEventosAgenda">
+    <ion-label>meus eventos</ion-label>
+    <ion-checkbox [(ngModel)]="meusEventos"></ion-checkbox>
+  </ion-item>
+
+
+  <div class="ferramentasAgenda">
+
+    <a href="#" class="ferramentaAgenda" (click)="cadastrarEvento()">
+        <ion-icon light name="add-circle"></ion-icon>
+    </a>
+
+    <a href="#" class="ferramentaAgenda">
+        <ion-icon light name="ios-microphone"></ion-icon>
+    </a>
+
+    <a href="#" class="ferramentaAgenda">
+        <ion-icon light name="md-list"></ion-icon>
+    </a>
+
+  </div>
+
+  -->
+
+<!--
+    <div class="modeloItemAgenda2">
+
+      <div class="modeloItemAgenda-data">
+        <a href="#" class="ferramentaAgenda2">
+            <ion-icon light name="ios-microphone"></ion-icon>
+        </a>
+      </div>
+
+      <div class="modeloItemAgenda-nomeEvento">
+
+      </div>
+
+
+      <div class="modeloItemAgenda-player">
+        <a href="#" class="ferramentaAgenda3">
+            <ion-icon light name="ios-play"></ion-icon>
+        </a>
+      </div>
+
+      <div class="modeloItemAgenda-horarioGravacao">
+        <p>gravado às 03:15 pm</p>
+      </div>
+
+    </div>
+
+
+    <div class="modeloItemAgenda2">
+
+      <div class="modeloItemAgenda-data">
+        <a href="#" class="ferramentaAgenda2">
+            <ion-icon light name="md-list"></ion-icon>
+        </a>
+      </div>
+
+      <div class="modeloItemAgenda-texto">
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis.</p>
+      </div>
+
+    </div> -->
+
+</ion-content>

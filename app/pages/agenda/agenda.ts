@@ -18,9 +18,16 @@ export class AgendaPage {
   static get parameters() {
     return [[NavController],[UsuarioService],[NavParams]];
   }
+  
+  public event = {
+    month: '1990-02-19',
+    timeStarts: '07:43',
+    timeEnds: '1990-02-20'
+  }
 
   public local: Storage = new Storage(LocalStorage);
   public dateValue: String;
+  public anoAtual: String;
   public viewValue: String;
   public days: Array<Object>;
   public weeks: Array<Array<Object>>;
@@ -69,6 +76,14 @@ export class AgendaPage {
      this.init();
    }
 
+   openModal(lmt){
+     document.getElementById(lmt).classList.remove("is-hidden");
+   }
+
+   closeModal(lmt){
+   	document.getElementById(lmt).classList.add("is-hidden");
+   }
+
   ionViewDidEnter() {
     if(this.nav.last().instance.namePage == "UsuarioEventoPage"){
       this.init();
@@ -82,6 +97,13 @@ export class AgendaPage {
     //console.log(data);
   }
 
+  mudaTamanhoInput(n,w) {
+    document.getElementById(n).style.width = w+"%";
+  }
+
+  mudaDisplayDiv(s) {
+    document.getElementById(s).style.display = "block";
+  }
 
   public prevYear(): void {
     this.date.subtract(1, 'Y');
@@ -148,6 +170,7 @@ export class AgendaPage {
     let firstWeekDay = null;
 
     this.dateValue = date.format('MMMM YYYY');
+    this.anoAtual = date.format('MMMM');
     this.days = [];
     this.weeks = [];
 

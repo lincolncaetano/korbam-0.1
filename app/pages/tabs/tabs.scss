@@ -2,15 +2,24 @@
 
 }
 
+.tab-button-text {
+      font-size: 1.1rem !important;
+}
+
+.tab-button-text, .tab-button-icon {
+   //max-width: none;
+   //white-space: normal !important;
+}
+
 body.ios {
 
   .tab-button {
     &[aria-selected="false"] {
-      color: #8c8c8c !important;
+      //color: #8c8c8c !important;
     }
 
     &[aria-selected="true"] {
-      color: #f53d3d !important;
+      //color: #f53d3d !important;
     }
   }
 
