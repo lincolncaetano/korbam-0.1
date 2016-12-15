@@ -32,7 +32,7 @@
 
       <ion-list>
 
-        <ion-list-header class="tituloModal">
+        <ion-list-header>
           CHECK-LIST
         </ion-list-header>
 
@@ -62,12 +62,10 @@
                 <h3>ARROZ</h3>
               </ion-item>
               <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
-
+              <a href="#">
+                  <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
+              </a>
       </ion-list>
-
-      <a href="#">
-          <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
-      </a>
 
   	</div>
   </div>
@@ -207,55 +205,57 @@
                   </a>
                 </div>
 
-                <div class="agendarFechado">
+                <ion-list>
 
-                  <input type="text" class="agendaEventoNome" name="agendaEventoNome" id="agendaEventoNome_1"
-                  (click)="mudaTamanhoInput('agendaEventoNome_1', 62.2); mudaDisplayDiv('botoesFerramentasFechados_1')"
-                  value="apn com fulano"
-                  />
+                  <ion-item-sliding class="itensAgenda">
 
-                  <div class="botoesFerramentas" id="botoesFerramentasFechados_1" style="display: none;">
+                    <ion-item class="agendaEvento">
+                      <h2 class="agendaEventoNome"><b>apn com fulano</b></h2>
+                    </ion-item>
 
-                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay3');">
-                        <ion-icon light name="md-alarm"></ion-icon>
-                    </a>
+                    <ion-item-options class="botoesAgenda" side="right">
 
-                    <a href="#" class="ferramentaAgenda">
-                        <ion-icon light name="ios-microphone"></ion-icon>
-                    </a>
+                      <a href="#" class="ferramentaAgenda" (click)="presentModal($event, 1);">
+                          <ion-icon light name="md-alarm"></ion-icon>
+                      </a>
 
-                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay1');">
-                        <ion-icon light name="md-list"></ion-icon>
-                    </a>
+                      <a href="#" class="ferramentaAgenda">
+                          <ion-icon light name="ios-microphone"></ion-icon>
+                      </a>
 
-                  </div>
+                      <a href="#" class="ferramentaAgenda" (click)="presentModal($event, 2);">
+                          <ion-icon light name="md-list"></ion-icon>
+                      </a>
 
-                </div>
+                    </ion-item-options>
 
-                <div class="agendarAberto">
+                  </ion-item-sliding>
 
-                  <input type="text" class="agendaEventoNome" name="agendaEventoNome" id="agendaEventoNome_2"
-                  (click)="mudaTamanhoInput('agendaEventoNome_2', 62.2); mudaDisplayDiv('botoesFerramentasFechados_2')"
-                  value="apn com fulano"
-                  />
+                  <ion-item-sliding class="itensAgenda">
 
-                  <div class="botoesFerramentas" id="botoesFerramentasFechados_2" style="display: none;">
+                    <ion-item class="agendaEvento">
+                      <h2 class="agendaEventoNome"><b>apn com fulano</b></h2>
+                    </ion-item>
 
-                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay3');">
-                        <ion-icon light name="md-alarm"></ion-icon>
-                    </a>
+                    <ion-item-options class="botoesAgenda" side="right">
 
-                    <a href="#" class="ferramentaAgenda">
-                        <ion-icon light name="ios-microphone"></ion-icon>
-                    </a>
+                      <a href="#" class="ferramentaAgenda" (click)="presentModal($event, 1);">
+                          <ion-icon light name="md-alarm"></ion-icon>
+                      </a>
 
-                    <a href="#" class="ferramentaAgenda" (click)="openModal('overlay2');">
-                        <ion-icon light name="md-list"></ion-icon>
-                    </a>
+                      <a href="#" class="ferramentaAgenda">
+                          <ion-icon light name="ios-microphone"></ion-icon>
+                      </a>
 
-                  </div>
+                      <a href="#" class="ferramentaAgenda" (click)="presentModal($event, 2);">
+                          <ion-icon light name="md-list"></ion-icon>
+                      </a>
 
-                </div>
+                    </ion-item-options>
+
+                  </ion-item-sliding>
+
+                </ion-list>
 
               </div>
 

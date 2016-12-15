@@ -85,18 +85,6 @@
 		border-bottom: 3px solid #000;
 }
 
-.agendarFechado .agendaEventoNome {
-		width: 97.3%;
-}
-
-.agendarAberto {
-		//background-color: #bdbdbd;
-}
-
-.BotoesFerramentasFechados {
-		display: block;
-}
-
 .ferramentasAgenda {
     background-color: #eee;
 		width: 100%;
@@ -122,16 +110,20 @@
 		margin-top: 8px;
 }
 
+.itensAgenda {
+		margin-top: 15px;
+}
+
+.botoesAgenda {
+		padding-top: 5px;
+		padding-right: 8px;
+		background-color: #d8dbde;
+}
+
 .agendaEventoNome {
-		width: 97.2%;
-		height: 50px;
-		margin: 5px;
-		margin-right: 0;
 		color: #9b9fa2;
 		font-weight: bold;
-		border: 2px solid #f3f3f4;
-		border-right: none;
-		padding-left: 10px;
+		margin-left: 10px;
 }
 
 .nomeEventoAgenda {
@@ -405,15 +397,6 @@ ion-col[width-14] {
 
 //
 
-.tituloModal {
-	text-align: center;
-	font-size: 2rem;
-	font-weight: bold;
-	font-style: italic;
-	margin-bottom: 15px;
-	color: #000;
-}
-
 .checkbox-icon, .checkbox-checked  {
 	background-color: #178854 !important;
 	border-color: #209860 !important;
@@ -437,18 +420,19 @@ ion-col[width-14] {
 			text-align: center;
 			border-radius: 50%;
 			margin-top: 4px;
-			margin-left: 40%;
+			margin-left: 45%;
 			color: #fff !important;
 			background-color: #209860;
 }
 
 .pesquisaChecklist {
-			margin-left: 35px;
+			margin-top: 30px;
 }
 
 .pesquisaInputChecklist {
 			width: 92%;
 			margin: 7px;
+			margin-top: 20px;
 			border: 2px solid #dfdada;
 			border-top: none;
 			border-left: none;
@@ -468,8 +452,8 @@ ion-col[width-14] {
 }
 
 .pesquisaInputAddPessoas {
-			width: 92%;
-			margin: 7px;
+			width: 85%;
+			margin-top: 30px;
 			border: 2px solid #dfdada;
 			border-top: none;
 			border-left: none;
@@ -485,9 +469,10 @@ ion-col[width-14] {
 			height: 25px;
 			border-radius: 50%;
 			float: left;
-			margin-left: -20px;
-			margin-top: 4px;
+			margin-left: 15px;
+			margin-top: 24px;
 			color: #0b4783 !important;
+			margin-bottom: 20px;
 }
 
 .botaoPesquisaDeletar {
@@ -496,8 +481,15 @@ ion-col[width-14] {
 }
 
 .horarioModal {
-	  margin-left: 50px;
+	  margin-left: 90px;
 		font-size: 200%;
 		font-weight: bold;
 		color: #6c6969;
+}
+
+.botaoFechaModal {
+		color: #021a28;
+}
+
+.modalChecklist {
 }

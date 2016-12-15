@@ -1,5 +1,4 @@
-import {Page, NavController, NavParams} from 'ionic-angular';
-
+import {Page, NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 import {Component, ViewContainerRef, Input, Output, EventEmitter, AfterViewInit} from '@angular/core';
 import {Storage, LocalStorage} from 'ionic-angular';
 
@@ -8,23 +7,25 @@ import * as moment from 'moment';
 import {CadastrarEventoPage} from '../cadastrar-evento/cadastrar-evento';
 import {EventoPage} from '../evento/evento';
 import {UsuarioService} from '../../services/UsuarioService';
+import {ModalPage} from './modal';
 
-@Page({
+@Component ({
   templateUrl: 'build/pages/agenda/agenda.html',
   providers: [UsuarioService]
 })
 export class AgendaPage {
 
   static get parameters() {
-    return [[NavController],[UsuarioService],[NavParams]];
+    return [[NavController],[UsuarioService],[NavParams], [ModalController]];
   }
-  
+
   public event = {
     month: '1990-02-19',
     timeStarts: '07:43',
     timeEnds: '1990-02-20'
   }
 
+  private modalCtrl: ModalController;
   public local: Storage = new Storage(LocalStorage);
   public dateValue: String;
   public anoAtual: String;
@@ -59,10 +60,11 @@ export class AgendaPage {
   private retornoPagina: any = false;
 
 
-  constructor(nav,usuarioService,navParams) {
+  constructor(nav,usuarioService,navParams, modalController) {
      this.nav = nav;
      this.service = usuarioService;
      this.navParams = navParams;
+     this.modalCtrl = modalController;
 
      this.local.get('idUsuario').then(profile => {
        this.idUsuario = JSON.parse(profile);
@@ -326,6 +328,195 @@ export class AgendaPage {
       console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
+  }
+
+  presentModal(myEvent, pagina) {
+
+    if (pagina == 1) {
+      let modal = this.modalCtrl.create(AgendarConteudoPage);
+      modal.present({ev: myEvent});
+    } else if (pagina == 2) {
+      let modal = this.modalCtrl.create(NotasConteudoPage);
+      modal.present({ev: myEvent});
+    } else {
+      let modal = this.modalCtrl.create(AddPessoasConteudoPage);
+      modal.present({ev: myEvent});
+    }
+
+  }
+
+}
+
+
+// modal do alarme
+
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="tituloModal">
+      HORÁRIO
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon class="botaoFechaModal" name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-datetime class="horarioModal" displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="event.timeStarts"></ion-datetime>
+    </ion-item>
+  </ion-list>
+</ion-content>
+`
+})
+export class AgendarConteudoPage {
+
+    public event = {
+      month: '1990-02-19',
+      timeStarts: '07:43',
+      timeEnds: '1990-02-20'
+    }
+
+  constructor(public viewCtrl: ViewController) { }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+}
+
+// modal das notas
+
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      CHECKLIST
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon class="botaoFechaModal" name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-list>
+
+    <input type="text" class="pesquisaInputChecklist" name="pesquisaInputChecklist" id="pesquisaInputChecklist">
+
+    <ion-item>
+      <img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+      <h3>ABACAXI</h3>
+    </ion-item>
+      <ion-checkbox class="checkboxChecklist" item-right checked="true"></ion-checkbox>
+
+    <ion-item>
+      <img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+      <h3>DOCE DE LEITE</h3>
+    </ion-item>
+      <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+    <ion-item>
+      <img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+      <h3>PÃO FATIADO</h3>
+    </ion-item>
+      <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+    <ion-item>
+      <img src="img/close.png" class="botaoChecklistDeletar" alt="Deletar" />
+      <h3>ARROZ</h3>
+    </ion-item>
+      <ion-checkbox class="checkboxChecklist" item-right></ion-checkbox>
+
+  </ion-list>
+
+<a href="#">
+    <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
+</a>
+
+</ion-content>
+`
+})
+export class NotasConteudoPage {
+
+  constructor(public viewCtrl: ViewController) { }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+}
+
+
+// modal de adicionar pessoas no grupo
+
+@Component({
+  template: `
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      ADICIONAR PESSOAS
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon class="botaoFechaModal" name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-list>
+
+    <input type="text" class="pesquisaInputAddPessoas" name="pesquisaInputAddPessoas" id="pesquisaInputAddPessoas">
+    <ion-icon light name="search" class="botaoPesquisaModal"></ion-icon>
+
+    <ion-item>
+      <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+      <h3 class="nomePesquisaModal">John Doe</h3>
+      <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+      <h3 class="nomePesquisaModal">Jane Doe</h3>
+      <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+      <h3 class="nomePesquisaModal">John Doe</h3>
+      <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+    </ion-item>
+
+    <ion-item>
+      <ion-avatar item-left><img src="../img/bradley.jpg"></ion-avatar>
+      <h3 class="nomePesquisaModal">Jane Doe</h3>
+      <img src="img/close.png" class="botaoPesquisaDeletar" alt="Deletar" />
+    </ion-item>
+
+  </ion-list>
+
+<a href="#">
+    <ion-icon light name="md-add" class="botaoChecklistAdd"></ion-icon>
+</a>
+
+</ion-content>
+`
+})
+export class AddPessoasConteudoPage {
+
+  constructor(public viewCtrl: ViewController) { }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 
 }
